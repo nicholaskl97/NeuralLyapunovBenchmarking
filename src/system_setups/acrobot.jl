@@ -53,4 +53,4 @@ function acrobot_setup(; p = Float32[], fixed_point = Float32[π, π, 0.0, 0.0])
             periodic_embedding, periodic_embedding_layer, periodic_pos_def, endpoint_check
 end
 
-acrobot_state_vars() = ["θ1", "θ2", "ω1", "ω2"]
+acrobot_state_vars() = ["θ2", "θ1", "ω2", "ω1"]
