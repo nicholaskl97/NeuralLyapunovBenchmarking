@@ -49,8 +49,8 @@ function acrobot_setup(; p = Float32[], fixed_point = Float32[π, π, 0.0, 0.0])
         (x) -> ≈(periodic_embedding(x), x0, atol = 5e-3)
     end
 
+    acrobot = mtkcompile(acrobot; inputs = unbound_inputs(acrobot))
+
     return acrobot, p, bounds, ω01, ω02, fixed_point, fixed_point_embedded,
             periodic_embedding, periodic_embedding_layer, periodic_pos_def, endpoint_check
 end
-
-acrobot_state_vars() = ["θ2", "θ1", "ω2", "ω1"]

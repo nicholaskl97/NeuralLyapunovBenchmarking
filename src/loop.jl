@@ -57,12 +57,9 @@ function run_benchmark(
     # Package parameters
     params = (phi = result.phi, θ = result.θ, dynamics, structure, fixed_point, p)
 
-    # Split Initial State column into separate columns for each state variable
-    data = split_state_columns(result.data, acrobot_state_vars())
-
     # Save intermediate results
     sys_name = string(getname(dynamics))
-    write_zip(result, data, cm, params, loss_plt, sys_name, experiment_name, trial_name)
+    write_zip(result, cm, params, loss_plt, sys_name, experiment_name, trial_name)
 
     return nothing
 end

@@ -1,7 +1,7 @@
 module NeuralLyapunovBenchmarking
 
 using NeuralLyapunov, NeuralPDE, NeuralLyapunovProblemLibrary, ModelingToolkit, Plots
-using ModelingToolkit: t_nounits as t, D_nounits as Dt, getname
+using ModelingToolkit: t_nounits as t, D_nounits as Dt, getname, unbound_inputs
 using Lux, LuxCUDA, ComponentArrays
 using Boltz.Layers: PeriodicEmbedding, MLP, ShiftTo
 using Random

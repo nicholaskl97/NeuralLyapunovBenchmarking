@@ -35,7 +35,6 @@ end
 
 function write_zip(
     result,
-    data,
     cm,
     params,
     loss_plt,
@@ -50,7 +49,7 @@ function write_zip(
         CSV.write(zip, result.training_losses)
 
         zip_newfile(zip, "simulation_data.csv")
-        CSV.write(zip, data; bom=true)
+        CSV.write(zip, result.data; bom=true)
 
         zip_newfile(zip, "confusion_matrix.csv")
         CSV.write(zip, cm)
