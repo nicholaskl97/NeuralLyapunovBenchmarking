@@ -1,4 +1,4 @@
-function acrobot_setup(; p = Float32[], fixed_point = Float32[π, π, 0.0, 0.0])
+function double_pendulum_setup(; p = Float32[], fixed_point = Float32[π, π, 0.0, 0.0])
     # Define the parameters
     if isempty(p)
         # Assume uniform rods of random mass and length
@@ -14,10 +14,10 @@ function acrobot_setup(; p = Float32[], fixed_point = Float32[π, π, 0.0, 0.0])
     end
 
     # Define the System
-    @named acrobot = Acrobot(; defaults = p)
+    @named double_pendulum = DoublePendulum(; defaults = p)
 
     # Define the bounds
-    θ1, θ2 = unknowns(acrobot)[1:2]
+    θ1, θ2 = unknowns(double_pendulum)[1:2]
 
     ω01 = sqrt(m1 * g * lc1 / I1)
     ω02 = sqrt(m2 * g * lc2 / I2)
@@ -48,8 +48,8 @@ function acrobot_setup(; p = Float32[], fixed_point = Float32[π, π, 0.0, 0.0])
         (x) -> ≈(periodic_embedding(x), x0, atol = 5e-3)
     end
 
-    acrobot = mtkcompile(acrobot; inputs = unbound_inputs(acrobot))
+    double_pendulum = mtkcompile(double_pendulum; inputs = unbound_inputs(double_pendulum))
 
-    return acrobot, p, bounds, ω01, ω02, fixed_point, fixed_point_embedded,
+    return double_pendulum, p, bounds, ω01, ω02, fixed_point, fixed_point_embedded,
             periodic_embedding, periodic_embedding_layer, periodic_pos_def, endpoint_check
 end

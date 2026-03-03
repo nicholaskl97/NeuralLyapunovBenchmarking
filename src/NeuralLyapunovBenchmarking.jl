@@ -11,9 +11,11 @@ using Serialization, CSV
 using ZipArchives: ZipWriter, zip_newfile
 using DataFrames
 
+# Include the system setups
 include("system_setups/acrobot.jl")
+include("system_setups/double_pendulum_driven.jl")
 
-export acrobot_setup
+export acrobot_setup, double_pendulum_setup
 
 const cpud = cpu_device()
 const gpud = gpu_device()
