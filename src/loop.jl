@@ -45,21 +45,27 @@ function run_benchmark(
         st,
         log_frequency
     )
-    println("$trial_name took $(result.training_time) seconds to benchmark.")
+    println(
+        "$trial_name took $(result.training_time) seconds to train and ",
+        "$(result.evaluation_time) seconds to evaluate."
+    )
+
+    # Generate time table
+    tt = time_table(result.training_time, result.evaluation_time)
 
     # Print confusion matrix
     cm = result.confusion_matrix
     println(cm)
 
     # Plot training losses
-    loss_plt = plot_losses(result, trial_name)
+    loss_plt = plot_losses(result.training_losses, trial_name)
 
     # Package parameters
     params = (phi = result.phi, θ = result.θ, dynamics, structure, fixed_point, p)
 
     # Save intermediate results
     sys_name = string(getname(dynamics))
-    write_zip(result, cm, params, loss_plt, sys_name, experiment_name, trial_name)
+    write_zip(result, cm, tt, params, loss_plt, sys_name, experiment_name, trial_name)
 
     return nothing
 end

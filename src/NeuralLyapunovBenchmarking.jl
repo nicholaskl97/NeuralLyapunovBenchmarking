@@ -28,7 +28,7 @@ export benchmark_with_precompile
 
 include("postprocessing.jl")
 
-export plot_losses, split_state_columns
+export plot_losses
 
 include("loop.jl")
 
