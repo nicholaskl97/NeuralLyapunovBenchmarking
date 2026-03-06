@@ -15,8 +15,9 @@ using DataFrames
 include("system_setups/acrobot.jl")
 include("system_setups/double_pendulum_driven.jl")
 include("system_setups/pendulum.jl")
+include("system_setups/quadrotor_planar.jl")
 
-export acrobot_setup, pendulum_setup, double_pendulum_setup
+export acrobot_setup, pendulum_setup, double_pendulum_setup, quadrotor_planar_setup
 
 const cpud = cpu_device()
 const gpud = gpu_device()
