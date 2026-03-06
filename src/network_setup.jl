@@ -120,3 +120,22 @@ function lyapunov_net_setup(
     minimization_condition = DontCheckNonnegativity(check_fixed_point = false)
     return chain, ps, st, structure, minimization_condition
 end
+
+function angular_embedding_setup(idxs, k, fixed_point; atol = 5e-3)
+    # Define an embedding layer that is periodic with period 2π with respect to θ
+    # Note: RNG used doesn't matter since the embedding is deterministic
+    periodic_embedding_layer = PeriodicEmbedding(idxs, fill(2f0 * π, length(idxs)))
+    ps, st = Lux.setup(default_rng(), periodic_embedding_layer)
+    periodic_embedding(x) = first(periodic_embedding_layer(x, ps, st))
+    fixed_point_embedded = periodic_embedding(fixed_point)
+
+    periodic_pos_def = let _k = Tuple(k)
+        (x, x0) ->  sum(abs2, periodic_embedding(_k .* x) - periodic_embedding(_k .* x0))
+    end
+    endpoint_check = let x0 = copy(fixed_point_embedded)
+        (x) -> ≈(periodic_embedding(x), x0; atol)
+    end
+
+    return periodic_embedding_layer, periodic_embedding, fixed_point_embedded,
+        periodic_pos_def, endpoint_check
+end

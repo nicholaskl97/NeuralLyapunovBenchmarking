@@ -15,13 +15,12 @@ function double_pendulum_setup(; p = Float32[], fixed_point = Float32[π, π, 0.
 
     # Define the System
     @named double_pendulum = DoublePendulum(; defaults = p)
+    θ1, θ2 = unknowns(double_pendulum)[1:2]
+    double_pendulum = mtkcompile(double_pendulum; inputs = unbound_inputs(double_pendulum))
 
     # Define the bounds
-    θ1, θ2 = unknowns(double_pendulum)[1:2]
-
     ω01 = sqrt(m1 * g * lc1 / I1)
     ω02 = sqrt(m2 * g * lc2 / I2)
-
     bounds = [
         θ1 ∈ (0, 2f0 * π),
         θ2 ∈ (0, 2f0 * π),
@@ -29,27 +28,11 @@ function double_pendulum_setup(; p = Float32[], fixed_point = Float32[π, π, 0.
         Dt(θ2) ∈ (-10, 10) .* ω02
     ]
 
-    # Define an embedding layer that is periodic with period 2π with respect to θ
-    # Note: RNG used doesn't matter since the embedding is deterministic
-    periodic_embedding_layer = PeriodicEmbedding([1, 2], Float32[2π, 2π])
-    ps, st = Lux.setup(default_rng(), periodic_embedding_layer)
-    periodic_embedding(x) = first(periodic_embedding_layer(x, ps, st))
-    fixed_point_embedded = periodic_embedding(fixed_point)
+    # Define periodic embedding
+    k = 1 ./ (2f0 * π, 2f0 * π, 20ω01, 20ω02)
+    periodic_embedding_layer, periodic_embedding, fixed_point_embedded, periodic_pos_def,
+        endpoint_check = angular_embedding_setup([1, 2], k, fixed_point)
 
-    periodic_pos_def = let k = 1 ./ (2f0 * π, 2f0 * π, 20ω01, 20ω02)
-        function (state, fixed_point)
-            return sum(
-                abs2,
-                periodic_embedding(k .* state) - periodic_embedding(k .* fixed_point)
-            )
-        end
-    end
-    endpoint_check = let x0 = copy(fixed_point_embedded)
-        (x) -> ≈(periodic_embedding(x), x0, atol = 5e-3)
-    end
-
-    double_pendulum = mtkcompile(double_pendulum; inputs = unbound_inputs(double_pendulum))
-
-    return double_pendulum, p, bounds, ω01, ω02, fixed_point, fixed_point_embedded,
+    return double_pendulum, p, bounds, fixed_point, fixed_point_embedded,
             periodic_embedding, periodic_embedding_layer, periodic_pos_def, endpoint_check
 end

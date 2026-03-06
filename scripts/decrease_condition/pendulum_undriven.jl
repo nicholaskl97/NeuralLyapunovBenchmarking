@@ -3,7 +3,7 @@ using NeuralPDE: QuasiRandomTraining
 using OptimizationOptimisers: Adam
 
 # Get double-pendulum-specific variables
-dynamics, p, bounds, ζ, ω0, fixed_point, fixed_point_embedded, periodic_embedding,
+dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
     periodic_embedding_layer, periodic_pos_def, endpoint_check = pendulum_setup(driven = false);
 
 # Set up neural network
@@ -29,6 +29,7 @@ simulation_time = 3.0f2
 log_frequency = 1
 
 # Define decrease conditions
+ζ = p[1]
 decrease_conditions = [
     ("StabilityISL", StabilityISL()),
     ("ExponentialStability", ExponentialStability(ζ)),
