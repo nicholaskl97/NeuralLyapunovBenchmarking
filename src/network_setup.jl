@@ -83,8 +83,13 @@ function lyapunov_net_setup(
         structure = NoAdditionalStructure()
     end
 
+    dev = gpu ? gpud : cpud
+
     if control_dim < 1
         chain = V
+
+        ps, st = Lux.setup(rng, chain)
+        ps = ps |> ComponentArray |> dev |> f32
     else
         if !isempty(u_eq) && length(u_eq) != control_dim
             error("u_eq supplied with length $(length(u_eq)) ≠ control_dim = $control_dim")
@@ -105,11 +110,11 @@ function lyapunov_net_setup(
 
         chain = vcat(V, u)
         structure = add_policy_search(NoAdditionalStructure(), control_dim)
+
+        ps, st = Lux.setup(rng, chain)
+        ps = ps .|> ComponentArray |> dev |> f32
     end
 
-    dev = gpu ? gpud : cpud
-    ps, st = Lux.setup(rng, chain)
-    ps = ps .|> ComponentArray |> dev |> f32
     st = st |> dev |> f32
 
     minimization_condition = DontCheckNonnegativity(check_fixed_point = false)
