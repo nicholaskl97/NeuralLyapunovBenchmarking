@@ -100,7 +100,7 @@ function lyapunov_net_setup(
             ShiftTo(
                 MLP(dim_in, Tuple(vcat(dims_hidden, [1])), activation),
                 fixed_point,
-                isempty(u_eq) ? [zero(eltype(fixed_point))] : u_eq[i]
+                isempty(u_eq) ? [zero(eltype(fixed_point))] : [u_eq[i]]
             ) for i in idx
         ]
 
