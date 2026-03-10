@@ -2,10 +2,12 @@ module NeuralLyapunovBenchmarking
 
 using NeuralLyapunov, NeuralPDE, NeuralLyapunovProblemLibrary, ModelingToolkit, Plots
 using ModelingToolkit: t_nounits as t, D_nounits as Dt, getname, unbound_inputs
+using ControlSystemsBase: lqr, Continuous
 using Lux, LuxCUDA, ComponentArrays
 using Boltz.Layers: PeriodicEmbedding, MLP, ShiftTo
 using Random
 using Random: default_rng
+using LinearAlgebra: I
 using StableRNGs
 using Serialization, CSV
 using ZipArchives: ZipWriter, zip_newfile
