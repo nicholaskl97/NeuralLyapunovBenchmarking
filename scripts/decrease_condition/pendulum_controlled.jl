@@ -1,20 +1,23 @@
-using NeuralLyapunovBenchmarking, NeuralLyapunov
+using NeuralLyapunovBenchmarking
+using NeuralLyapunov: StabilityISL, ExponentialStability, AsymptoticStability
 using NeuralPDE: QuasiRandomTraining
 using OptimizationOptimisers: Adam
 
 # Get pendulum-specific variables
 dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
-    periodic_embedding_layer, periodic_pos_def, endpoint_check = pendulum_setup(driven = false);
+    periodic_embedding_layer, periodic_pos_def, endpoint_check = pendulum_setup(controlled = true);
 
 # Set up neural network
 dim_hidden = 10
 hidden_layers = 2
 dim_out = 3
+control_dim = 0
 chain, ps, st, structure, minimization_condition = additive_lyapunov_net_setup(
     dim_hidden,
     hidden_layers,
     dim_out,
-    fixed_point_embedded;
+    fixed_point_embedded,
+    control_dim;
     embedding = periodic_embedding_layer
 );
 
@@ -24,7 +27,7 @@ optimization_args = [:maxiters => 1000]
 strategy = QuasiRandomTraining(1024)
 
 # Define evaluation parameters
-n = 10
+n = 1000
 simulation_time = 3.0f2
 log_frequency = 1
 

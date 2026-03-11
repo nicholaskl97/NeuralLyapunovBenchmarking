@@ -2,7 +2,7 @@ using NeuralLyapunovBenchmarking, NeuralLyapunov
 using NeuralPDE: QuasiRandomTraining
 using OptimizationOptimisers: Adam
 
-# Get double-pendulum-specific variables
+# Get pendulum-specific variables
 dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
     periodic_embedding_layer, periodic_pos_def, endpoint_check = pendulum_setup();
 
