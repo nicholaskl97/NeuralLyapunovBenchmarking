@@ -5,13 +5,13 @@ using OptimizationOptimisers: Adam
 
 # Get planar-quadrotor-specific variables
 dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
-    periodic_embedding_layer, periodic_pos_def, endpoint_check = quadrotor_planar_setup();
+    periodic_embedding_layer, periodic_pos_def, endpoint_check = quadrotor_planar_setup(lqr = true);
 
 # Set up neural network
 dim_hidden = 25
 hidden_layers = 3
 dim_out = 10
-control_dim = 2
+control_dim = 0
 m, I_quad, g, r = p
 chain, ps, st, structure, minimization_condition = additive_lyapunov_net_setup(
     dim_hidden,
@@ -19,8 +19,7 @@ chain, ps, st, structure, minimization_condition = additive_lyapunov_net_setup(
     dim_out,
     fixed_point_embedded,
     control_dim;
-    embedding = periodic_embedding_layer,
-    u_eq = fill(m * g / 2, control_dim)
+    embedding = periodic_embedding_layer
 );
 
 # Define optimization parameters
@@ -29,7 +28,7 @@ optimization_args = [[:maxiters => 500], [:maxiters => 1000], [:maxiters => 1000
 strategy = QuasiRandomTraining(1024)
 
 # Define evaluation parameters
-n = 10
+n = 1000
 simulation_time = 3.0f3
 log_frequency = 1
 
