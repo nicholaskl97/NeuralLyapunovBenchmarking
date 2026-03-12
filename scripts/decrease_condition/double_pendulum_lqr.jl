@@ -35,7 +35,7 @@ I1, I2, l1, l2, lc1, lc2, m1, m2, g = p
 ω0 = sqrt(g * min(m1 * lc1 / I1, m2 * lc2 / I2))
 decrease_conditions = [
     ("StabilityISL", StabilityISL()),
-    ("ExponentialStability", ExponentialStability(sqrt(ω0))),
+    ("ExponentialStability", ExponentialStability(ω0)),
     ("AsymptoticStability", AsymptoticStability(strength = periodic_pos_def)),
 ];
 

@@ -1,6 +1,6 @@
 function double_pendulum_setup(;
     p = Float32[],
-    fixed_point = Float32[π, π, 0, 0],
+    fixed_point = Float32[π, 0, 0, 0],
     lqr = false
 )
     # Define the parameters
@@ -53,7 +53,7 @@ function double_pendulum_setup(;
             periodic_embedding, periodic_embedding_layer, periodic_pos_def, endpoint_check
 end
 
-function double_pendulum_lqr_matrix(p; fixed_point = Float32[π, π, 0, 0], Q = I(4), R = I(2))
+function double_pendulum_lqr_matrix(p; fixed_point = Float32[π, 0, 0, 0], Q = I(4), R = I(2))
     return _double_pendulum_lqr_matrix(p, fixed_point, I(2), Q, R)
 end
 
