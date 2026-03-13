@@ -2,15 +2,26 @@ using NeuralLyapunovBenchmarking, NeuralLyapunov
 using NeuralPDE: QuasiRandomTraining
 using OptimizationOptimisers: Adam
 
+# Define the parameters
+# Assume uniform rods of random mass and length
+m1, m2 = ones(Float32, 2)
+l1, l2 = ones(Float32, 2)
+lc1, lc2 = l1 / 2, l2 / 2
+I1 = m1 * l1^2 / 3
+I2 = m2 * l2^2 / 3
+g = 1.0f0
+b1, b2 = 10.0f0, 10.0f0
+p = Float32[I1, I2, l1, l2, lc1, lc2, m1, m2, g, b1, b2]
+
 # Get double-pendulum-specific variables
 dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
-    periodic_embedding_layer, periodic_pos_def, endpoint_check = double_pendulum_setup();
+    periodic_embedding_layer, periodic_pos_def, endpoint_check = double_pendulum_setup(; p, driven = false);
 
 # Set up neural network
 dim_hidden = 25
 hidden_layers = 3
 dim_out = 10
-control_dim = 2
+control_dim = 0
 chain, ps, st, structure, minimization_condition = additive_lyapunov_net_setup(
     dim_hidden,
     hidden_layers,
@@ -26,7 +37,7 @@ optimization_args = [:maxiters => 2000]
 strategy = QuasiRandomTraining(1024)
 
 # Define evaluation parameters
-n = 10
+n = 1000
 simulation_time = 3.0f3
 log_frequency = 1
 

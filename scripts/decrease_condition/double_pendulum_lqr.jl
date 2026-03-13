@@ -31,11 +31,11 @@ simulation_time = 3.0f3
 log_frequency = 1
 
 # Define decrease conditions
-I1, I2, l1, l2, lc1, lc2, m1, m2, g = p
-ω0 = sqrt(g * min(m1 * lc1 / I1, m2 * lc2 / I2))
+b1, b2 = p[10:11]
+k = min(b1, b2)
 decrease_conditions = [
     ("StabilityISL", StabilityISL()),
-    ("ExponentialStability", ExponentialStability(ω0)),
+    ("ExponentialStability", ExponentialStability(k)),
     ("AsymptoticStability", AsymptoticStability(strength = periodic_pos_def)),
 ];
 

@@ -7,7 +7,7 @@ using Lux, LuxCUDA, ComponentArrays
 using Boltz.Layers: PeriodicEmbedding, MLP, ShiftTo
 using Random
 using Random: default_rng
-using LinearAlgebra: I
+using LinearAlgebra: I, diagm
 using StableRNGs
 using Serialization, CSV
 using ZipArchives: ZipWriter, zip_newfile
