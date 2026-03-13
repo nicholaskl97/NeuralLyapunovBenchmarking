@@ -15,7 +15,7 @@ using DataFrames
 
 # Include the system setups
 include("system_setups/acrobot.jl")
-include("system_setups/double_pendulum_driven.jl")
+include("system_setups/double_pendulum.jl")
 include("system_setups/pendulum.jl")
 include("system_setups/quadrotor_planar.jl")
 
