@@ -17,7 +17,8 @@ function run_benchmark(
     st,
     log_frequency,
     experiment_name,
-    trial_name
+    trial_name,
+    ensemble_alg = EnsembleDistributed()
 )
     println("Beginning $trial_name benchmark...")
 
@@ -43,6 +44,7 @@ function run_benchmark(
         endpoint_check,
         ps,
         st,
+        ensemble_alg,
         log_frequency
     )
     println(
