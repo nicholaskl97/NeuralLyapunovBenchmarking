@@ -18,8 +18,10 @@ include("system_setups/acrobot.jl")
 include("system_setups/double_pendulum.jl")
 include("system_setups/pendulum.jl")
 include("system_setups/quadrotor_planar.jl")
+include("system_setups/quadrotor_3d.jl")
 
-export acrobot_setup, pendulum_setup, double_pendulum_setup, quadrotor_planar_setup
+export acrobot_setup, pendulum_setup, double_pendulum_setup, quadrotor_planar_setup,
+    quadrotor_3d_setup
 
 const cpud = cpu_device()
 const gpud = gpu_device()

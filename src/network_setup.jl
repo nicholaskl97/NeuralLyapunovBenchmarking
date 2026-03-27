@@ -80,13 +80,13 @@ function lyapunov_net_setup(
 
     if !isnothing(embedding)
         V = Chain(embedding, V)
-        structure = NoAdditionalStructure()
     end
 
     dev = gpu ? gpud : cpud
 
     if control_dim < 1
         chain = V
+        structure = NoAdditionalStructure()
 
         ps, st = Lux.setup(rng, chain)
         ps = ps |> ComponentArray |> dev |> f32

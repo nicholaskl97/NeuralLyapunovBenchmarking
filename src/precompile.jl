@@ -28,7 +28,7 @@ function benchmark_with_precompile(
         simulation_time = 1f0,
         n = 3,
         optimization_args = [:maxiters => 5],
-        endpoint_check = Returns(true), # This system is known to be globally stable
+        endpoint_check = Returns(true),
         init_params = ps,
         init_states = st,
         ensemble_alg,
