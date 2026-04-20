@@ -1,7 +1,7 @@
 function double_pendulum_setup(;
     p = Float32[],
-    fixed_point = Float32[π * driven, 0, 0, 0],
     driven = true,
+    fixed_point = Float32[π * driven, 0, 0, 0],
     lqr = false
 )
     # Define the parameters
