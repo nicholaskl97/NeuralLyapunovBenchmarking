@@ -34,7 +34,6 @@ chain, ps, st, structure, minimization_condition = additive_lyapunov_net_setup(
 # Define optimization parameters
 opt = [Adam(0.1), Adam(0.01)]
 optimization_args = [:maxiters => 2000]
-strategy = QuasiRandomTraining(1024)
 
 # Define evaluation parameters
 n = 1000
