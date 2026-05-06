@@ -30,10 +30,14 @@ log_frequency = 1
 
 # Define decrease conditions
 ζ = p[1]
+softplus(x) = log(one(x) + exp(x))
 decrease_conditions = [
-    ("StabilityISL", StabilityISL()),
-    ("ExponentialStability", ExponentialStability(ζ)),
-    ("AsymptoticStability", AsymptoticStability(strength = periodic_pos_def)),
+    ("StabilityISL - relu", StabilityISL()),
+    ("StabilityISL - softplus", StabilityISL(rectifier = softplus)),
+    ("ExponentialStability - relu", ExponentialStability(ζ)),
+    ("ExponentialStability - softplus", ExponentialStability(ζ; rectifier = softplus)),
+    ("AsymptoticStability - relu", AsymptoticStability(strength = periodic_pos_def)),
+    ("AsymptoticStability - softplus", AsymptoticStability(strength = periodic_pos_def; rectifier = softplus)),
 ];
 
 #################################### Run the benchmarks ####################################

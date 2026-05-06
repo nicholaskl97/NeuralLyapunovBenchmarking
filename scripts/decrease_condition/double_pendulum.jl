@@ -26,18 +26,31 @@ optimization_args = [:maxiters => 2000]
 strategy = QuasiRandomTraining(1024)
 
 # Define evaluation parameters
-n = 10
+n = 25
 simulation_time = 3.0f3
 log_frequency = 1
 
 # Define decrease conditions
 b1, b2 = p[10:11]
 k = min(b1, b2)
-decrease_conditions = [
-    ("StabilityISL", StabilityISL()),
-    ("ExponentialStability", ExponentialStability(k)),
-    ("AsymptoticStability", AsymptoticStability(strength = periodic_pos_def)),
-];
+relu(x) = max(zero(x), x)
+softplus(x) = max(zero(x), x) + log1p(exp(-abs(x)))
+squareplus(x) = max(zero(x), x) + one(x) / (abs(x) + sqrt(abs2(x) + 2))
+
+rectifiers = [
+    ("relu", relu),
+    ("softplus", softplus),
+    ("squareplus", squareplus)
+]
+decrease_conditions = reduce(
+    vcat,
+    [
+        ("StabilityISL - $(name)", StabilityISL(; rectifier)),
+        ("ExponentialStability - $(name)", ExponentialStability(k; rectifier)),
+        ("AsymptoticStability - $(name)", AsymptoticStability(strength = periodic_pos_def; rectifier))
+    ]
+    for (name, rectifier) in rectifiers
+)
 
 #################################### Run the benchmarks ####################################
 experiment_name = "decrease_condition"

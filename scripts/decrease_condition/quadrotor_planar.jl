@@ -34,12 +34,25 @@ simulation_time = 3.0f3
 log_frequency = 1
 
 # Define decrease conditions
-ω0 = sqrt(g / r)
-decrease_conditions = [
-    ("StabilityISL", StabilityISL()),
-    ("ExponentialStability", ExponentialStability(sqrt(ω0))),
-    ("AsymptoticStability", AsymptoticStability(strength = periodic_pos_def)),
-];
+k = sqrt(sqrt(g / r))
+relu(x) = max(zero(x), x)
+softplus(x) = max(zero(x), x) + log1p(exp(-abs(x)))
+squareplus(x) = max(zero(x), x) + one(x) / (abs(x) + sqrt(abs2(x) + 2))
+
+rectifiers = [
+    ("relu", relu),
+    ("softplus", softplus),
+    ("squareplus", squareplus)
+]
+decrease_conditions = reduce(
+    vcat,
+    [
+        ("StabilityISL - $(name)", StabilityISL(; rectifier)),
+        ("ExponentialStability - $(name)", ExponentialStability(k; rectifier)),
+        ("AsymptoticStability - $(name)", AsymptoticStability(strength = periodic_pos_def; rectifier))
+    ]
+    for (name, rectifier) in rectifiers
+)
 
 #################################### Run the benchmarks ####################################
 experiment_name = "decrease_condition"

@@ -28,12 +28,12 @@ chain, ps, st, structure, minimization_condition = additive_lyapunov_net_setup(
     control_dim;
     embedding = periodic_embedding_layer,
     u_eq = Float32[m * g, 0, 0, 0],
-    gpu = false
+    gpu = true
 );
 
 # Define optimization parameters
 opt = [Adam(0.1), Adam(0.01), Adam(0.001)]
-optimization_args = [[:maxiters => 500], [:maxiters => 1000], [:maxiters => 1000]]
+optimization_args = [[:maxiters => 1000], [:maxiters => 500], [:maxiters => 250]]
 strategy = QuasiRandomTraining(1024)
 
 # Define evaluation parameters
@@ -42,12 +42,25 @@ simulation_time = 3.0f3
 log_frequency = 1
 
 # Define decrease conditions
-ω0 = sqrt(g / L)
-decrease_conditions = [
-    ("StabilityISL", StabilityISL()),
-    ("ExponentialStability", ExponentialStability(sqrt(ω0))),
-    ("AsymptoticStability", AsymptoticStability(strength = periodic_pos_def)),
-];
+k = sqrt(sqrt(g / sqrt(minimum(abs, [Ixx, Iyy, Izz]) / m)))
+relu(x) = max(zero(x), x)
+softplus(x) = max(zero(x), x) + log1p(exp(-abs(x)))
+squareplus(x) = max(zero(x), x) + one(x) / (abs(x) + sqrt(abs2(x) + 2))
+
+rectifiers = [
+    ("relu", relu),
+    ("softplus", softplus),
+    ("squareplus", squareplus)
+]
+decrease_conditions = reduce(
+    vcat,
+    [
+        ("StabilityISL - $(name)", StabilityISL(; rectifier)),
+        ("ExponentialStability - $(name)", ExponentialStability(k; rectifier)),
+        ("AsymptoticStability - $(name)", AsymptoticStability(strength = periodic_pos_def; rectifier))
+    ]
+    for (name, rectifier) in rectifiers
+)
 
 #################################### Run the benchmarks ####################################
 experiment_name = "decrease_condition"
