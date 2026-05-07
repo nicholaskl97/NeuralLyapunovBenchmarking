@@ -64,3 +64,5 @@ for (trial_name, setup) in variants
         trial_name
     )
 end
+
+write_summary(dynamics, experiment_name, "Architecture")

@@ -88,3 +88,5 @@ for (trial_name, strategy) in strategies
         EnsembleSerial()
     )
 end
+
+write_summary(dynamics, experiment_name, "Sampling Method")

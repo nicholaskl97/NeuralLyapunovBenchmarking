@@ -10,7 +10,7 @@ using Random: default_rng
 using LinearAlgebra: I, diagm
 using StableRNGs
 using Serialization, CSV
-using ZipArchives: ZipWriter, zip_newfile
+using ZipArchives: ZipWriter, zip_newfile, ZipReader, zip_readentry
 using DataFrames
 
 # Include the system setups
@@ -36,7 +36,7 @@ export benchmark_with_precompile
 
 include("postprocessing.jl")
 
-export plot_losses
+export plot_losses, write_summary
 
 include("loop.jl")
 

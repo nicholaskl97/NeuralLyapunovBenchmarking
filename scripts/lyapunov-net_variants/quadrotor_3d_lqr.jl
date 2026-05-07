@@ -82,3 +82,5 @@ for (trial_name, setup) in variants
         EnsembleSerial()
     )
 end
+
+write_summary(dynamics, experiment_name, "Architecture")

@@ -70,3 +70,5 @@ for (trial_name, strategy) in strategies
         trial_name
     )
 end
+
+write_summary(dynamics, experiment_name, "Sampling Method")
