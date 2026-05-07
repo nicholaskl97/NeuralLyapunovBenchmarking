@@ -52,13 +52,18 @@ end
 
 function write_summary(dynamics, experiment_name, trial_category_name = experiment_name)
     # Make empty DataFrame
+    trial_category_names = split(trial_category_name, " - ")
     df = DataFrame(
-        trial_category_name => String[],
-        "True Positives" => Int[],
-        "False Positives" => Int[],
-        "True Negatives" => Int[],
-        "False Negatives" => Int[],
-        "Training Time" => Float64[]
+        vcat(
+            [name => String[] for name in trial_category_names],
+            [
+                "True Positives" => Int[],
+                "False Positives" => Int[],
+                "True Negatives" => Int[],
+                "False Negatives" => Int[],
+                "Training Time" => Float64[]
+            ]
+        )
     )
 
     # Get directory of results
@@ -83,7 +88,7 @@ function write_summary(dynamics, experiment_name, trial_category_name = experime
 
         # Initialize the row with the trial name
         trial_name, _ = splitext(zip_name)
-        row = Dict(trial_category_name => trial_name)
+        row = Dict(trial_category_names .=> split(trial_name, " - "))
 
         # Add the confusion matrix data to the row
         cm = DataFrame(CSV.File(zip_readentry(archive, "confusion_matrix.csv")))

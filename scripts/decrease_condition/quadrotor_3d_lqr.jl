@@ -91,3 +91,5 @@ for (trial_name, decrease_condition) in decrease_conditions
         EnsembleSerial()
     )
 end
+
+write_summary(dynamics, experiment_name, "Decrease Condition - Rectifier")

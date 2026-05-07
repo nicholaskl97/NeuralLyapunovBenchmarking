@@ -32,16 +32,25 @@ simulation_time = 3.0f2
 log_frequency = 1
 
 # Define decrease conditions
-ζ = p[1]
-softplus(x) = log(one(x) + exp(x))
-decrease_conditions = [
-    ("StabilityISL - relu", StabilityISL()),
-    ("StabilityISL - softplus", StabilityISL(rectifier = softplus)),
-    ("ExponentialStability - relu", ExponentialStability(ζ)),
-    ("ExponentialStability - softplus", ExponentialStability(ζ; rectifier = softplus)),
-    ("AsymptoticStability - relu", AsymptoticStability(strength = periodic_pos_def)),
-    ("AsymptoticStability - softplus", AsymptoticStability(strength = periodic_pos_def; rectifier = softplus)),
-];
+k = p[1]
+relu(x) = max(zero(x), x)
+softplus(x) = max(zero(x), x) + log1p(exp(-abs(x)))
+squareplus(x) = max(zero(x), x) + one(x) / (abs(x) + sqrt(abs2(x) + 2))
+
+rectifiers = [
+    ("relu", relu),
+    ("softplus", softplus),
+    ("squareplus", squareplus)
+]
+decrease_conditions = reduce(
+    vcat,
+    [
+        ("StabilityISL - $(name)", StabilityISL(; rectifier)),
+        ("ExponentialStability - $(name)", ExponentialStability(k; rectifier)),
+        ("AsymptoticStability - $(name)", AsymptoticStability(strength = periodic_pos_def; rectifier))
+    ]
+    for (name, rectifier) in rectifiers
+)
 
 #################################### Run the benchmarks ####################################
 experiment_name = "decrease_condition"
@@ -68,3 +77,5 @@ for (trial_name, decrease_condition) in decrease_conditions
         trial_name
     )
 end
+
+write_summary(dynamics, experiment_name, "Decrease Condition - Rectifier")

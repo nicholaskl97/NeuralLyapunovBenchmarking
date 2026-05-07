@@ -39,7 +39,7 @@ squareplus(x) = max(zero(x), x) + one(x) / (abs(x) + sqrt(abs2(x) + 2))
 rectifiers = [
     ("relu", relu),
     ("softplus", softplus),
-#    ("squareplus", squareplus)
+    ("squareplus", squareplus)
 ]
 decrease_conditions = reduce(
     vcat,
@@ -76,3 +76,5 @@ for (trial_name, decrease_condition) in decrease_conditions
         trial_name
     )
 end
+
+write_summary(dynamics, experiment_name, "Decrease Condition - Rectifier")

@@ -77,3 +77,5 @@ for (trial_name, decrease_condition) in decrease_conditions
         trial_name
     )
 end
+
+write_summary(dynamics, experiment_name, "Decrease Condition - Rectifier")
