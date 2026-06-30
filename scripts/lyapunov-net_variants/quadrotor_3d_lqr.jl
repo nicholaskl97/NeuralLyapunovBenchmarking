@@ -35,7 +35,7 @@ opt = [Adam(0.1), Adam(0.01), Adam(0.001)]
 optimization_args = [[:maxiters => 500], [:maxiters => 1000], [:maxiters => 1000]]
 
 # Define evaluation parameters
-n = 100
+n = 1000
 simulation_time = 3.0f3
 log_frequency = 1
 

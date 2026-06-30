@@ -26,7 +26,7 @@ optimization_args = [:maxiters => 2000]
 strategy = QuasiRandomTraining(1024)
 
 # Define evaluation parameters
-n = 10
+n = 1000
 simulation_time = 3.0f3
 log_frequency = 1
 
