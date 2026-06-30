@@ -22,16 +22,18 @@ mkdir -p $TMPDIR
 export PROJDIR=$HOME/NeuralLyapunovBenchmarking
 
 # Run each experiment
-for EXPERIMENT in $PROJDIR/scripts/*; do
-    if [ -d $PROJDIR/scripts/$EXPERIMENT ]; then
+for EXPERIMENT_DIR in "$PROJDIR/scripts"/*; do
+    if [ -d "$EXPERIMENT_DIR" ]; then
+        EXPERIMENT=$(basename "$EXPERIMENT_DIR")
         # Run each trial
-        for TRIAL in $PROJDIR/scripts/$EXPERIMENT/*.jl; do
+        for TRIAL_PATH in "$EXPERIMENT_DIR"/*.jl; do
+            TRIAL=$(basename "$TRIAL_PATH" .jl)
             # Run the script and redirect output to temporary files
-            julia --project=$PROJDIR $PROJDIR/scripts/$EXPERIMENT/$TRIAL.jl 1>$TMPDIR/$TRIAL.out 2>$TMPDIR/$TRIAL.err
+            julia --project="$PROJDIR" "$TRIAL_PATH" 1>"$TMPDIR/$TRIAL.out" 2>"$TMPDIR/$TRIAL.err"
 
             # Move the output files to the results directory, which was created by the script
-            mv $TMPDIR/$TRIAL.out $PROJDIR/results/$EXPERIMENT/$TRIAL/$TRIAL.out
-            mv $TMPDIR/$TRIAL.err $PROJDIR/results/$EXPERIMENT/$TRIAL/$TRIAL.err
+            mv "$TMPDIR/$TRIAL.out" "$PROJDIR/results/$EXPERIMENT/$TRIAL/$TRIAL.out"
+            mv "$TMPDIR/$TRIAL.err" "$PROJDIR/results/$EXPERIMENT/$TRIAL/$TRIAL.err"
         done
     fi
 done
