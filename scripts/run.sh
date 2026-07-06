@@ -21,6 +21,12 @@ mkdir -p $TMPDIR
 # Set project directory
 export PROJDIR=$HOME/NeuralLyapunovBenchmarking
 
+# Set CUDA runtime
+julia --project="$PROJDIR" -e 'using LuxCUDA; CUDA.set_runtime_version!(v"12.9"; local_toolkit=true)' 1>"$TMPDIR/cuda_runtime.out" 2>"$TMPDIR/cuda_runtime.err"
+mkdir -p "$PROJDIR/results"
+mv "$TMPDIR/cuda_runtime.out" "$PROJDIR/results/cuda_runtime.out"
+mv "$TMPDIR/cuda_runtime.err" "$PROJDIR/results/cuda_runtime.err"
+
 # Run each experiment
 for EXPERIMENT_DIR in "$PROJDIR/scripts"/*; do
     if [ -d "$EXPERIMENT_DIR" ]; then
@@ -32,6 +38,7 @@ for EXPERIMENT_DIR in "$PROJDIR/scripts"/*; do
             julia --project="$PROJDIR" "$TRIAL_PATH" 1>"$TMPDIR/$TRIAL.out" 2>"$TMPDIR/$TRIAL.err"
 
             # Move the output files to the results directory, which was created by the script
+            mkdir -p "$PROJDIR/results/$EXPERIMENT/$TRIAL"
             mv "$TMPDIR/$TRIAL.out" "$PROJDIR/results/$EXPERIMENT/$TRIAL/$TRIAL.out"
             mv "$TMPDIR/$TRIAL.err" "$PROJDIR/results/$EXPERIMENT/$TRIAL/$TRIAL.err"
         done
