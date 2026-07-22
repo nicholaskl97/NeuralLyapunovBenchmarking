@@ -106,5 +106,16 @@ function write_summary(dynamics, experiment_name, trial_category_name = experime
     # Write the summary to a CSV file
     csv_adr = joinpath(zip_dir, "summary.csv")
     CSV.write(csv_adr, df)
+
+    # Write versioninfo, Status, and Manifest
+    reproducibility_adr = joinpath(zip_dir, "reproducibility.txt")
+    open(reproducibility_adr, "w") do f
+        versioninfo(f)
+        println(f, "\n")
+        status(; io = f)
+        println(f, "\n")
+        status(; mode = PKGMODE_MANIFEST, io = f)
+    end
+
     return nothing
 end
