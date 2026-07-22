@@ -18,13 +18,17 @@ export JULIA_CPU_TARGET="generic;skylake-avx512,clone_all;cascadelake,clone_all"
 export TMPDIR=/state/partition1/user/$USER
 mkdir -p "$TMPDIR"
 
-# Set project directory
+# Set project directory and make results directory
 export PROJDIR="$HOME/NeuralLyapunovBenchmarking"
+mkdir -p "$PROJDIR/results"
 
 # Set CUDA runtime
-julia --project="$PROJDIR" -e 'using LuxCUDA; CUDA.set_runtime_version!(v"12.9"; local_toolkit=true)' 1>"$TMPDIR/cuda_runtime.out" 2>"$TMPDIR/cuda_runtime.err"
-mkdir -p "$PROJDIR/results"
-mv "$TMPDIR/cuda_runtime.out" "$PROJDIR/results/cuda_runtime.out"
-mv "$TMPDIR/cuda_runtime.err" "$PROJDIR/results/cuda_runtime.err"
+julia --project="$PROJDIR" -e 'using LuxCUDA; CUDA.set_runtime_version!(v"12.9"; local_toolkit=true)'
 
+# Run script(s) using make
+# Usage examples:
+#   make all
+#   make decrease_condition
+#   make decrease_condition/controlled
+#   make sampling_method/quadrotor_planar_lqr
 make -C "$PROJDIR" "$@"
