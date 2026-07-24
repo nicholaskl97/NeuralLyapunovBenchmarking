@@ -32,3 +32,6 @@ julia --project="$PROJDIR" -e 'using LuxCUDA; CUDA.set_runtime_version!(v"12.9";
 #   make decrease_condition/controlled
 #   make sampling_method/quadrotor_planar_lqr
 make -C "$PROJDIR" "$@"
+
+# Collect individual trial CSV results into a single CSV file for the experiment
+julia --project="$PROJDIR" "$PROJDIR/scripts/collect_csvs.jl" "@"
