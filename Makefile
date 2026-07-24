@@ -22,7 +22,7 @@ TRIALS_neural_policy_search := pendulum_driven double_pendulum acrobot quadrotor
 
 # Helper that returns a trial name only when the corresponding Julia script exists.
 define trial_exists
-$(if $(wildcard scripts/$(1)/$(2).jl),$(2))
+$(if $(wildcard $(1)/scripts/$(2).jl),$(2))
 endef
 
 # Expand to all runnable targets for a given experiment by scanning the shared
@@ -40,10 +40,10 @@ endef
 # into the results directory for that trial.
 define run_trial_rule
 .PHONY: $(1)/$(2)
-$(1)/$(2): scripts/$(1)/$(2).jl
-	@echo "Running scripts/$(1)/$(2).jl"
-	@mkdir -p "$(PROJDIR)/results/$(1)/$(2)"
-	@$(RUN_JULIA) "$(ROOT_DIR)/scripts/$(1)/$(2).jl" 1>"$(PROJDIR)/results/$(1)/$(2)/$(2).out" 2>"$(PROJDIR)/results/$(1)/$(2)/$(2).err"
+$(1)/$(2): $(1)/scripts/$(2).jl
+	@echo "Running $(1)/scripts/$(2).jl"
+	@mkdir -p "$(PROJDIR)/$(1)/results/$(2)"
+	@$(RUN_JULIA) "$(ROOT_DIR)/$(1)/scripts/$(2).jl" 1>"$(PROJDIR)/$(1)/results/$(2)/$(2).out" 2>"$(PROJDIR)/$(1)/results/$(2)/$(2).err"
 endef
 
 # Rule template for an experiment target (for example: make decrease_condition).
@@ -71,5 +71,5 @@ all: $(EXPERIMENTS)
 
 # Generate the experiment, group, and trial rules from the shared definitions.
 $(foreach exp,$(EXPERIMENTS),$(eval $(call experiment_rule,$(exp))))
-$(foreach exp,$(EXPERIMENTS),$(foreach group,$(GROUPS),$(foreach trial,$(TRIALS_$(group)),$(if $(wildcard scripts/$(exp)/$(trial).jl),$(eval $(call run_trial_rule,$(exp),$(trial)))))))
+$(foreach exp,$(EXPERIMENTS),$(foreach group,$(GROUPS),$(foreach trial,$(TRIALS_$(group)),$(if $(wildcard $(exp)/scripts/$(trial).jl),$(eval $(call run_trial_rule,$(exp),$(trial)))))))
 $(foreach exp,$(EXPERIMENTS),$(foreach group,$(GROUPS),$(eval $(call group_rule,$(exp),$(group)))))

@@ -1,8 +1,8 @@
 #!/usr/bin/env julia
 """Aggregate trial-level summary CSV files into experiment-level summary CSV files.
 
-This script scans `results/<experiment>/<trial>/summary.csv` for the requested
-experiment target and writes a merged `results/<experiment>/summary.csv`.
+This script scans `<experiment>/results/<trial>/summary.csv` for the requested
+experiment target and writes a merged `<experiment>/results/summary.csv`.
 A `System` column is inserted from the trial name, and `Accuracy` is computed
 from true/false positive/negative counts when available.
 """
@@ -41,11 +41,10 @@ end
 
 function main(args)
     project_root = get(ENV, "PROJDIR", normpath(joinpath(@__DIR__, "..")))
-    results_dir = joinpath(project_root, "results")
     makefile_path = joinpath(project_root, "Makefile")
 
-    if !isdir(results_dir)
-        @warn "results directory not found: $results_dir"
+    if !isdir(project_root)
+        @warn "project root not found: $project_root"
         exit(1)
     end
 
@@ -116,7 +115,7 @@ function main(args)
     end
 
     for exp in experiments
-        expdir = joinpath(results_dir, exp)
+        expdir = joinpath(project_root, exp, "results")
         if !isdir(expdir)
             @info "Skipping missing experiment results directory: $expdir"
             continue

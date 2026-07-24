@@ -18,9 +18,8 @@ export JULIA_CPU_TARGET="generic;skylake-avx512,clone_all;cascadelake,clone_all"
 export TMPDIR=/state/partition1/user/$USER
 mkdir -p "$TMPDIR"
 
-# Set project directory and make results directory
+# Set project directory
 export PROJDIR="$HOME/NeuralLyapunovBenchmarking"
-mkdir -p "$PROJDIR/results"
 
 # Set CUDA runtime
 julia --project="$PROJDIR" -e 'using LuxCUDA; CUDA.set_runtime_version!(v"12.9"; local_toolkit=true)'

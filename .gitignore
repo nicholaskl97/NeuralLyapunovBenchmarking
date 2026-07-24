@@ -5,4 +5,4 @@
 /docs/build/
 Manifest.toml
 .vscode/settings.json
-/results/
+/*/results/

@@ -27,7 +27,7 @@ function write_zip(
     trial_name
 )
     proj_dir = get(ENV, "PROJDIR", ".")
-    dir = joinpath(proj_dir, "results", experiment_name, dynamics_name)
+    dir = joinpath(proj_dir, experiment_name, "results", dynamics_name)
     mkpath(dir)
     ZipWriter("$dir/$(trial_name).zip") do zip
         zip_newfile(zip, "confusion_matrix.csv")
@@ -70,7 +70,7 @@ function write_summary(dynamics, experiment_name, trial_category_name = experime
     # Get directory of results
     sys_name = string(getname(dynamics))
     proj_dir = get(ENV, "PROJDIR", ".")
-    zip_dir = joinpath(proj_dir, "results", experiment_name, sys_name)
+    zip_dir = joinpath(proj_dir, experiment_name, "results", sys_name)
 
     # For each trial/zip file in the directory
     for zip_name in readdir(zip_dir)
