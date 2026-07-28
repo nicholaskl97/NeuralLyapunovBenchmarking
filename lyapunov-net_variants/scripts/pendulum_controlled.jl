@@ -19,23 +19,23 @@ log_frequency = 1
 # Define decrease condition
 decrease_condition = StabilityISL()
 
-# Define discretization strategy
-N = 1024
-strategy = QuasiRandomTraining(N)
-
 # Set up neural network
 dim_hidden = 10
 hidden_layers = 2
 dim_out = 3
 control_dim = 0
-variants = [
-    ("AdditiveLyapunovNet", additive_lyapunov_net_setup),
-    ("MultiplicativeLyapunovNet", multiplicative_lyapunov_net_setup),
-]
+Ns = 10:16
+variants = mapreduce(vcat, Ns) do N
+    strategy = QuasiRandomTraining(2^N)
+    return [
+        ("AdditiveLyapunovNet - $N", additive_lyapunov_net_setup, strategy),
+        ("MultiplicativeLyapunovNet - $N", multiplicative_lyapunov_net_setup, strategy),
+    ]
+end
 
 #################################### Run the benchmarks ####################################
 experiment_name = "lyapunov-net_variants"
-for (trial_name, setup) in variants
+for (trial_name, setup, strategy) in variants
     chain, ps, st, structure, minimization_condition = setup(
         dim_hidden,
         hidden_layers,
@@ -68,4 +68,4 @@ for (trial_name, setup) in variants
     )
 end
 
-write_summary(dynamics, experiment_name, "Architecture")
+write_summary(dynamics, experiment_name, "Architecture - N")

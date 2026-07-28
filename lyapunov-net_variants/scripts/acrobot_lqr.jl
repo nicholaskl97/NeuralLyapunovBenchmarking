@@ -6,15 +6,19 @@ using OptimizationOptimisers: Adam
 dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
     periodic_embedding_layer, periodic_pos_def, endpoint_check = acrobot_setup(lqr = true);
 
-# Set up neural network
+# Set up neural network and discretization strategy
 dim_hidden = 25
 hidden_layers = 3
 dim_out = 10
 control_dim = 0
-variants = [
-    ("AdditiveLyapunovNet", additive_lyapunov_net_setup),
-    ("MultiplicativeLyapunovNet", multiplicative_lyapunov_net_setup),
-]
+Ns = 10:16
+variants = mapreduce(vcat, Ns) do N
+    strategy = QuasiRandomTraining(2^N)
+    return [
+        ("AdditiveLyapunovNet - $N", additive_lyapunov_net_setup, strategy),
+        ("MultiplicativeLyapunovNet - $N", multiplicative_lyapunov_net_setup, strategy),
+    ]
+end
 
 # Define optimization parameters
 opt = [Adam(0.1), Adam(0.01)]
@@ -28,13 +32,9 @@ log_frequency = 1
 # Define decrease conditions
 decrease_condition = StabilityISL()
 
-# Define discretization strategy
-N = 1024
-strategy = QuasiRandomTraining(N)
-
 #################################### Run the benchmarks ####################################
 experiment_name = "lyapunov-net_variants"
-for (trial_name, setup) in variants
+for (trial_name, setup, strategy) in variants
     chain, ps, st, structure, minimization_condition = setup(
         dim_hidden,
         hidden_layers,
@@ -67,4 +67,4 @@ for (trial_name, setup) in variants
     )
 end
 
-write_summary(dynamics, experiment_name, "Architecture")
+write_summary(dynamics, experiment_name, "Architecture - N")
