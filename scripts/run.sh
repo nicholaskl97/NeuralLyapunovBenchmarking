@@ -7,7 +7,7 @@
 source /etc/profile
 
 # Load julia and CUDA
-module load local-julia-1.12.5
+module load local-julia-1.13.1
 module load cuda/12.9
 
 # Set environment variables
