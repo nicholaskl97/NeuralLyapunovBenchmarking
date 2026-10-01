@@ -7,8 +7,8 @@ dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
     periodic_embedding_layer, periodic_pos_def, endpoint_check = double_pendulum_setup(lqr = true);
 
 # Set up neural network
-dim_hidden = 25
-hidden_layers = 3
+dim_hidden = 50
+hidden_layers = 5
 dim_out = 10
 control_dim = 0
 Ns = 10:16
@@ -21,7 +21,7 @@ variants = mapreduce(vcat, Ns) do N
 end
 
 # Define optimization parameters
-opt = [Adam(0.1), Adam(0.01)]
+opt = [Adam(0.1f0), Adam(0.01f0), Adam(0.001f0)]
 optimization_args = [:maxiters => 2000]
 
 # Define evaluation parameters
