@@ -14,6 +14,7 @@ using ZipArchives: ZipWriter, zip_newfile, ZipReader, zip_readentry
 using DataFrames
 using Pkg: status, PKGMODE_MANIFEST
 using InteractiveUtils: versioninfo
+using SciMLBase: EnsembleDistributed
 
 # Include the system setups
 include("system_setups/acrobot.jl")
