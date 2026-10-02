@@ -8,17 +8,24 @@ dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
 
 # Set up neural network
 dim_hidden = 50
-hidden_layers = 5
 dim_out = 10
 control_dim = 0
-Ns = 10:16
-variants = mapreduce(vcat, Ns) do N
-    strategy = QuasiRandomTraining(2^N)
+depths = 1:10
+variants = mapreduce(vcat, depths) do hidden_layers
     return [
-        ("AdditiveLyapunovNet - $N", additive_lyapunov_net_setup, strategy),
-        ("MultiplicativeLyapunovNet - $N", multiplicative_lyapunov_net_setup, strategy),
+        (
+            "AdditiveLyapunovNet - $hidden_layers",
+            additive_lyapunov_net_setup,
+            hidden_layers
+        ),
+        (
+            "MultiplicativeLyapunovNet - $hidden_layers",
+            multiplicative_lyapunov_net_setup,
+            hidden_layers
+        ),
     ]
 end
+strategy = QuasiRandomTraining(2^10)
 
 # Define optimization parameters
 opt = [Adam(0.1f0), Adam(0.01f0), Adam(0.001f0)]
@@ -34,7 +41,7 @@ decrease_condition = StabilityISL()
 
 #################################### Run the benchmarks ####################################
 experiment_name = "lyapunov-net_variants"
-for (trial_name, setup, strategy) in variants
+for (trial_name, setup, hidden_layers) in variants
     chain, ps, st, structure, minimization_condition = setup(
         dim_hidden,
         hidden_layers,
@@ -67,4 +74,4 @@ for (trial_name, setup, strategy) in variants
     )
 end
 
-write_summary(dynamics, experiment_name, "Architecture - N")
+write_summary(dynamics, experiment_name, "Architecture - Depth")
