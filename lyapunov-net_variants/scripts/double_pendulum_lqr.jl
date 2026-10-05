@@ -7,8 +7,8 @@ dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
     periodic_embedding_layer, periodic_pos_def, endpoint_check = double_pendulum_setup(lqr = true);
 
 # Set up neural network
-dim_hidden = 50
-dim_out = 10
+dim_hidden = 1028
+dim_out = 16
 control_dim = 0
 depths = 1:10
 variants = mapreduce(vcat, depths) do hidden_layers
