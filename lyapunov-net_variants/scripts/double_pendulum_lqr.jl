@@ -7,11 +7,11 @@ dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
     periodic_embedding_layer, periodic_pos_def, endpoint_check = double_pendulum_setup(lqr = true);
 
 # Set up neural network
-dim_hidden = 50
-hidden_layers = 5
-dim_out = 10
+dim_hidden = 1028
+hidden_layers = 10
+dim_out = 16
 control_dim = 0
-Ns = 10:16
+Ns = 10:20
 variants = mapreduce(vcat, Ns) do N
     strategy = QuasiRandomTraining(2^N)
     return [
