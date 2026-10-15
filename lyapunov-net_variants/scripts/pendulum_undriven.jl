@@ -7,10 +7,10 @@ dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
     periodic_embedding_layer, periodic_pos_def, endpoint_check = pendulum_setup(driven = false);
 
 # Set up neural network
-dim_hidden = 10
-hidden_layers = 2
-dim_out = 3
-Ns = 10:16
+dim_hidden = 1028
+hidden_layers = 10
+dim_out = 16
+Ns = 6:15
 variants = mapreduce(vcat, Ns) do N
     strategy = QuasiRandomTraining(2^N)
     return [
@@ -20,12 +20,12 @@ variants = mapreduce(vcat, Ns) do N
 end
 
 # Define optimization parameters
-opt = Adam()
-optimization_args = [:maxiters => 1000]
+opt = [Adam(0.1f0), Adam(0.01f0)]
+optimization_args = [:maxiters => 2000]
 
 # Define evaluation parameters
 n = 1000
-simulation_time = 3.0f2
+simulation_time = 3.0f3
 log_frequency = 1
 
 # Define decrease conditions

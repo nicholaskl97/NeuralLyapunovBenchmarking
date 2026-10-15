@@ -21,11 +21,11 @@ dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
 );
 
 # Set up neural network
-dim_hidden = 25
-hidden_layers = 3
-dim_out = 10
+dim_hidden = 1028
+hidden_layers = 10
+dim_out = 16
 control_dim = 0
-Ns = 10:16
+Ns = 5:16
 variants = mapreduce(vcat, Ns) do N
     strategy = QuasiRandomTraining(2^N)
     return [
@@ -35,8 +35,8 @@ variants = mapreduce(vcat, Ns) do N
 end
 
 # Define optimization parameters
-opt = [Adam(0.1), Adam(0.01), Adam(0.001)]
-optimization_args = [[:maxiters => 500], [:maxiters => 1000], [:maxiters => 1000]]
+opt = [Adam(0.1f0), Adam(0.01f0), Adam(0.001f0)]
+optimization_args = [:maxiters => 2000]
 
 # Define evaluation parameters
 n = 1000
