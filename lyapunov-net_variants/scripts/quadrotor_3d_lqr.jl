@@ -25,7 +25,7 @@ dim_hidden = 1028
 hidden_layers = 10
 dim_out = 16
 control_dim = 0
-Ns = 5:16
+Ns = 6:15
 variants = mapreduce(vcat, Ns) do N
     strategy = QuasiRandomTraining(2^N)
     return [
