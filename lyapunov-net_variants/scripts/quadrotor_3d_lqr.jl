@@ -2,7 +2,7 @@ using NeuralLyapunovBenchmarking
 using NeuralLyapunov: StabilityISL
 using NeuralPDE: QuasiRandomTraining
 using OptimizationOptimisers: Adam
-using ModelingToolkit: EnsembleSerial
+using SciMLBase: EnsembleSerial
 
 # Get 3D-quadrotor-specific variables
 m = 0.775f0
