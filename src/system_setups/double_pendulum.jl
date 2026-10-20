@@ -42,7 +42,15 @@ function double_pendulum_setup(;
         )
         double_pendulum = double_pendulum_undriven
     end
-    θ2, θ1 = unknowns(double_pendulum)[1:2]
+
+    states = unknowns(double_pendulum)
+    state_names = last.(split.(string.(getname.(states)), '₊'))
+    order = [
+        only(findall(==(name), state_names)) for
+        name in ("θ1", "θ2", "θ1ˍt", "θ2ˍt")
+    ]
+    state_order = invperm(order)
+    θ1, θ2, ω1, ω2 = states[order]
 
     # Define the bounds
     ω01 = sqrt(m1 * g * lc1 / I1)
@@ -50,15 +58,18 @@ function double_pendulum_setup(;
     bounds = [
         θ1 ∈ (0, 2f0 * π),
         θ2 ∈ (0, 2f0 * π),
-        Dt(θ1) ∈ (-10, 10) .* ω01,
-        Dt(θ2) ∈ (-10, 10) .* ω02
+        ω1 ∈ (-10, 10) .* ω01,
+        ω2 ∈ (-10, 10) .* ω02
     ]
+    bounds = bounds[state_order]
 
     # Define periodic embedding
-    k = 1 ./ (2f0 * π, 2f0 * π, 20ω02, 20ω01)
-    fixed_point = fixed_point[[2, 1, 4, 3]]
+    scales = [2f0 * π, 2f0 * π, 20ω01, 20ω02]
+    k = 1 ./ Tuple(scales[state_order])
+    fixed_point = fixed_point[state_order]
+    periodic_dimensions = findall(index -> index in 1:2, state_order)
     periodic_embedding_layer, periodic_embedding, fixed_point_embedded, periodic_pos_def,
-        endpoint_check = angular_embedding_setup([1, 2], k, fixed_point)
+        endpoint_check = angular_embedding_setup(periodic_dimensions, k, fixed_point)
 
     return double_pendulum, p, bounds, fixed_point, fixed_point_embedded,
             periodic_embedding, periodic_embedding_layer, periodic_pos_def, endpoint_check

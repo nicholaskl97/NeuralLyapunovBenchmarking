@@ -50,13 +50,18 @@ function quadrotor_3d_setup(;
 
         @mtkcompile quadrotor_3d_lqr = control_quadrotor_3d(quadrotor_3d, π_lqr)
         quadrotor_3d = quadrotor_3d_lqr
-        x, y, z, vx, vy, vz, ϕ, θ, ψ, ωϕ, ωθ, ωψ = reverse(unknowns(quadrotor_3d))
-        order = reverse([1, 2, 3, 7, 8, 9, 4, 5, 6, 10, 11, 12])
     else
         quadrotor_3d = mtkcompile(quadrotor_3d; inputs = unbound_inputs(quadrotor_3d))
-        x, y, z, vx, vy, vz, ϕ, θ, ψ, ωϕ, ωθ, ωψ = reverse(unknowns(quadrotor_3d))
-        order = reverse([1, 2, 3, 7, 8, 9, 4, 5, 6, 10, 11, 12])
     end
+
+    states = unknowns(quadrotor_3d)
+    state_names = last.(split.(string.(getname.(states)), '₊'))
+    order = [
+        only(findall(==(name), state_names)) for
+        name in ("x", "y", "z", "φ", "θ", "ψ", "vx", "vy", "vz", "ωφ", "ωθ", "ωψ")
+    ]
+    state_order = invperm(order)
+    x, y, z, ϕ, θ, ψ, vx, vy, vz, ωϕ, ωθ, ωψ = states[order]
 
     # Define the bounds
     scale = 10.0f0
@@ -76,15 +81,20 @@ function quadrotor_3d_setup(;
         ωθ ∈ dom0 .* ω0,
         ωψ ∈ dom0 .* ω0
     ]
-    bounds = bounds[order]
+    bounds = bounds[state_order]
 
     # Define periodic embedding
-    scales = Float32[ω0, ω0, ω0, 0, 0, 0, v0, v0, v0, 2L, 2L, 2L] .* scale
-    scales[4:6] .= 2f0 * π
-    k = 1 ./ Tuple(scales[order])
-    fixed_point = fixed_point[order]
+    scales = Float32[
+        2L, 2L, 2L, 2f0 * π, 2f0 * π, 2f0 * π,
+        v0, v0, v0, ω0, ω0, ω0
+    ] .* scale
+    k = 1 ./ Tuple(scales[state_order])
+    fixed_point = fixed_point[state_order]
+    periodic_dimensions = findall(index -> index in 4:6, state_order)
     periodic_embedding_layer, periodic_embedding, fixed_point_embedded,
-        periodic_pos_def, endpoint_check = angular_embedding_setup(4:6, k, fixed_point)
+        periodic_pos_def, endpoint_check = angular_embedding_setup(
+        periodic_dimensions, k, fixed_point
+    )
 
     return quadrotor_3d, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
         periodic_embedding_layer, periodic_pos_def, endpoint_check

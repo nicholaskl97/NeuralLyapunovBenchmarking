@@ -20,18 +20,29 @@ function pendulum_setup(;
         pendulum = mtkcompile(pendulum)
     end
 
+    states = unknowns(pendulum)
+    state_names = last.(split.(string.(getname.(states)), '₊'))
+    order = [only(findall(==(name), state_names)) for name in ("θ", "θˍt")]
+    state_order = invperm(order)
+    θ, ω = states[order]
+
     # Define the bounds
-    θ = unknowns(pendulum)[1]
     ω0 = p[2]
     bounds = [
         θ ∈ (0, 2.0f0 * π),
-        Dt(θ) ∈ (-10, 10) .* ω0,
+        ω ∈ (-10, 10) .* ω0,
     ]
+    bounds = bounds[state_order]
 
     # Define periodic embedding
-    k = 1 ./ (2.0f0 * π, 20ω0)
+    scales = [2.0f0 * π, 20ω0]
+    k = 1 ./ Tuple(scales[state_order])
+    fixed_point = fixed_point[state_order]
+    periodic_dimensions = findall(==(1), state_order)
     periodic_embedding_layer, periodic_embedding, fixed_point_embedded,
-        periodic_pos_def, endpoint_check = angular_embedding_setup([1], k, fixed_point)
+        periodic_pos_def, endpoint_check = angular_embedding_setup(
+        periodic_dimensions, k, fixed_point
+    )
 
     return pendulum, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
         periodic_embedding_layer, periodic_pos_def, endpoint_check

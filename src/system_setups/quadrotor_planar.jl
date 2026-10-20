@@ -25,7 +25,14 @@ function quadrotor_planar_setup(; p = Float32[], fixed_point = zeros(Float32, 6)
             inputs = unbound_inputs(quadrotor_planar)
         )
     end
-    θ, y, x = unknowns(quadrotor_planar)[1:3]
+    states = unknowns(quadrotor_planar)
+    state_names = last.(split.(string.(getname.(states)), '₊'))
+    order = [
+        only(findall(==(name), state_names)) for
+        name in ("x", "y", "θ", "xˍt", "yˍt", "θˍt")
+    ]
+    state_order = invperm(order)
+    x, y, θ, vx, vy, ω = states[order]
 
     # Define the bounds
     scale = 10.0f0
@@ -36,16 +43,21 @@ function quadrotor_planar_setup(; p = Float32[], fixed_point = zeros(Float32, 6)
         x ∈ dom0 .* 2r,
         y ∈ dom0 .* 2r,
         θ ∈ (0, 2f0 * π),
-        Dt(x) ∈ dom0 .* v0,
-        Dt(y) ∈ dom0 .* v0,
-        Dt(θ) ∈ dom0 .* ω0
+        vx ∈ dom0 .* v0,
+        vy ∈ dom0 .* v0,
+        ω ∈ dom0 .* ω0
     ]
+    bounds = bounds[state_order]
 
     # Define periodic embedding
-    k = 1 ./ (2f0 * π, 2r, 2r, ω0, v0, v0) ./ scale
-    fixed_point = fixed_point[[3, 2, 1, 6, 5, 4]]
+    scales = [2r, 2r, 2f0 * π, v0, v0, ω0] .* scale
+    k = 1 ./ Tuple(scales[state_order])
+    fixed_point = fixed_point[state_order]
+    periodic_dimensions = findall(==(3), state_order)
     periodic_embedding_layer, periodic_embedding, fixed_point_embedded,
-        periodic_pos_def, endpoint_check = angular_embedding_setup([1], k, fixed_point)
+        periodic_pos_def, endpoint_check = angular_embedding_setup(
+        periodic_dimensions, k, fixed_point
+    )
 
     return quadrotor_planar, p, bounds, fixed_point, fixed_point_embedded,
             periodic_embedding, periodic_embedding_layer, periodic_pos_def, endpoint_check

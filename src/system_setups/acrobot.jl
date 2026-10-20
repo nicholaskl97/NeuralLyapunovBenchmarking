@@ -22,14 +22,18 @@ function acrobot_setup(; p = Float32[], fixed_point = Float32[π, 0, 0, 0], lqr 
         end
         @mtkcompile acrobot_lqr = control_double_pendulum(acrobot, π_lqr)
         acrobot = acrobot_lqr
-        θ1, θ2, ω2, ω1 = unknowns(acrobot)
-        order = [1, 2, 4, 3]
     else
         acrobot = mtkcompile(acrobot; inputs = unbound_inputs(acrobot))
-        θ2, θ1 = unknowns(acrobot)[1:2]
-        ω1, ω2 = Dt(θ1), Dt(θ2)
-        order = [2, 1, 4, 3]
     end
+
+    states = unknowns(acrobot)
+    state_names = last.(split.(string.(getname.(states)), '₊'))
+    order = [
+        only(findall(==(name), state_names)) for
+        name in ("θ1", "θ2", "θ1ˍt", "θ2ˍt")
+    ]
+    state_order = invperm(order)
+    θ1, θ2, ω1, ω2 = states[order]
 
     # Define the bounds
     ω01 = sqrt(m1 * g * lc1 / I1)
@@ -41,14 +45,15 @@ function acrobot_setup(; p = Float32[], fixed_point = Float32[π, 0, 0, 0], lqr 
         ω1 ∈ (-scale / 2, scale / 2) .* ω01,
         ω2 ∈ (-scale / 2, scale / 2) .* ω02,
     ]
-    bounds = bounds[order]
+    bounds = bounds[state_order]
 
     # Define periodic embedding
     scales = [2.0f0 * π, 2.0f0 * π, scale * ω01, scale * ω02]
-    k = 1 ./ Tuple(scales[order])
-    fixed_point = fixed_point[order]
+    k = 1 ./ Tuple(scales[state_order])
+    fixed_point = fixed_point[state_order]
+    periodic_dimensions = findall(index -> index in 1:2, state_order)
     periodic_embedding_layer, periodic_embedding, fixed_point_embedded, periodic_pos_def,
-        endpoint_check = angular_embedding_setup([1, 2], k, fixed_point)
+        endpoint_check = angular_embedding_setup(periodic_dimensions, k, fixed_point)
 
     return acrobot, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
         periodic_embedding_layer, periodic_pos_def, endpoint_check
