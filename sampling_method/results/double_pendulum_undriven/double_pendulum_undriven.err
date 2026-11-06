@@ -1,0 +1,33 @@
+GKS: cannot open display - headless operation mode active
+┌ Warning: Your Tesla V100-PCIE-32GB GPU (compute capability 7.0) is not fully supported by CUDA 12.9.0.
+│ Some functionality may be broken. Ensure you are using the latest version of CUDA.jl in combination with an up-to-date NVIDIA driver.
+│ If that does not help, please file an issue to add support for the latest CUDA toolkit.
+└ @ CUDACore ~/local/software/julia-1.12.5/local/share/julia/packages/CUDACore/OIFhX/lib/cudadrv/state.jl:231
+┌ Warning: Verbosity toggle: dt_epsilon 
+│  Initial timestep too small (near machine epsilon), using default: dt = 1.0e-6
+└ @ OrdinaryDiffEqCore ~/local/software/julia-1.12.5/local/share/julia/packages/OrdinaryDiffEqCore/sXbgm/src/initdt.jl:214
+┌ Warning: Verbosity toggle: dt_epsilon 
+│  Initial timestep too small (near machine epsilon), using default: dt = 1.0e-6
+└ @ OrdinaryDiffEqCore ~/local/software/julia-1.12.5/local/share/julia/packages/OrdinaryDiffEqCore/sXbgm/src/initdt.jl:214
+┌ Warning: Verbosity toggle: dt_epsilon 
+│  Initial timestep too small (near machine epsilon), using default: dt = 1.0e-6
+└ @ OrdinaryDiffEqCore ~/local/software/julia-1.12.5/local/share/julia/packages/OrdinaryDiffEqCore/sXbgm/src/initdt.jl:214
+┌ Warning: Verbosity toggle: dt_epsilon 
+│  Initial timestep too small (near machine epsilon), using default: dt = 1.0e-6
+└ @ OrdinaryDiffEqCore ~/local/software/julia-1.12.5/local/share/julia/packages/OrdinaryDiffEqCore/sXbgm/src/initdt.jl:214
+┌ Warning: Verbosity toggle: nan_inf_gradients 
+│  Skipping parameter update due to NaN or Inf in gradients at iteration 1844
+└ @ OptimizationOptimisers ~/local/software/julia-1.12.5/local/share/julia/packages/OptimizationOptimisers/5ZNTO/src/OptimizationOptimisers.jl:147
+┌ Warning: Verbosity toggle: nan_inf_gradients 
+│  Skipping parameter update due to NaN or Inf in gradients at iteration 1900
+└ @ OptimizationOptimisers ~/local/software/julia-1.12.5/local/share/julia/packages/OptimizationOptimisers/5ZNTO/src/OptimizationOptimisers.jl:147
+┌ Warning: Verbosity toggle: dt_epsilon 
+│  Initial timestep too small (near machine epsilon), using default: dt = 1.0e-6
+└ @ OrdinaryDiffEqCore ~/local/software/julia-1.12.5/local/share/julia/packages/OrdinaryDiffEqCore/sXbgm/src/initdt.jl:214
+┌ Warning: Verbosity toggle: dt_epsilon 
+│  Initial timestep too small (near machine epsilon), using default: dt = 1.0e-6
+└ @ OrdinaryDiffEqCore ~/local/software/julia-1.12.5/local/share/julia/packages/OrdinaryDiffEqCore/sXbgm/src/initdt.jl:214
+┌ Warning: Skipping double_pendulum_undriven.err, as it is not a .zip file
+└ @ NeuralLyapunovBenchmarking ~/NeuralLyapunovBenchmarking/src/postprocessing.jl:86
+┌ Warning: Skipping double_pendulum_undriven.out, as it is not a .zip file
+└ @ NeuralLyapunovBenchmarking ~/NeuralLyapunovBenchmarking/src/postprocessing.jl:86

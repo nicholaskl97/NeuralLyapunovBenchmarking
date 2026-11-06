@@ -1,0 +1,5 @@
+GKS: cannot open display - headless operation mode active
+┌ Warning: Skipping pendulum_undriven.err, as it is not a .zip file
+└ @ NeuralLyapunovBenchmarking ~/NeuralLyapunovBenchmarking/src/postprocessing.jl:86
+┌ Warning: Skipping pendulum_undriven.out, as it is not a .zip file
+└ @ NeuralLyapunovBenchmarking ~/NeuralLyapunovBenchmarking/src/postprocessing.jl:86

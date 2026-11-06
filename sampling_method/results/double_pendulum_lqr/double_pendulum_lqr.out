@@ -1,0 +1,36 @@
+Beginning QuasiRandomTraining benchmark...
+Precompilation run...
+Running benchmark...
+QuasiRandomTraining took 322.205071871 seconds to train and 3.697479605 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     988
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     12
+Beginning StochasticTraining benchmark...
+Precompilation run...
+Running benchmark...
+StochasticTraining took 356.396540046 seconds to train and 2.318470345 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     991
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      9
+Beginning GridTraining benchmark...
+Precompilation run...
+Running benchmark...
+GridTraining took 338.204467735 seconds to train and 2.51286162 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     828
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives    172

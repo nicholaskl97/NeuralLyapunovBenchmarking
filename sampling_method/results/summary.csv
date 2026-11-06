@@ -1,0 +1,22 @@
+System,Sampling Method,True Positives,False Positives,True Negatives,False Negatives,Training Time,Accuracy
+Acrobot LQR,GridTraining,56.0,835.0,98.0,11.0,327.531755518,0.154
+Acrobot LQR,QuasiRandomTraining,53.0,910.0,23.0,14.0,306.320641403,0.076
+Acrobot LQR,StochasticTraining,59.0,904.0,29.0,8.0,341.109358271,0.088
+Double Pendulum LQR,GridTraining,828.0,0.0,0.0,172.0,338.204467735,0.828
+Double Pendulum LQR,QuasiRandomTraining,988.0,0.0,0.0,12.0,322.205071871,0.988
+Double Pendulum LQR,StochasticTraining,991.0,0.0,0.0,9.0,356.396540046,0.991
+Double Pendulum Undriven,GridTraining,967.0,0.0,0.0,33.0,322.097468212,0.967
+Double Pendulum Undriven,QuasiRandomTraining,998.0,0.0,0.0,2.0,304.009995533,0.998
+Double Pendulum Undriven,StochasticTraining,997.0,0.0,0.0,3.0,337.990143425,0.997
+Pendulum Controlled,GridTraining,569.0,421.0,10.0,0.0,36.583079669,0.579
+Pendulum Controlled,QuasiRandomTraining,567.0,421.0,10.0,2.0,30.059932054,0.577
+Pendulum Controlled,StochasticTraining,567.0,421.0,10.0,2.0,37.722136132,0.577
+Pendulum Undriven,GridTraining,998.0,0.0,0.0,2.0,36.861740649,0.998
+Pendulum Undriven,QuasiRandomTraining,998.0,0.0,0.0,2.0,31.234581555,0.998
+Pendulum Undriven,StochasticTraining,994.0,0.0,0.0,6.0,39.047755858,0.994
+Quadrotor 3D LQR,GridTraining,78.0,734.0,180.0,8.0,923.959030533,0.258
+Quadrotor 3D LQR,QuasiRandomTraining,82.0,894.0,20.0,4.0,713.365773406,0.102
+Quadrotor 3D LQR,StochasticTraining,81.0,901.0,13.0,5.0,943.376517659,0.094
+Quadrotor Planar LQR,GridTraining,207.0,753.0,2.0,38.0,257.428071932,0.209
+Quadrotor Planar LQR,QuasiRandomTraining,234.0,755.0,0.0,11.0,236.107954681,0.234
+Quadrotor Planar LQR,StochasticTraining,240.0,755.0,0.0,5.0,252.773835048,0.24

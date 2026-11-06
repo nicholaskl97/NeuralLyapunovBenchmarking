@@ -1,0 +1,21 @@
+Architecture,N,True Positives,False Positives,True Negatives,False Negatives,Accuracy,Training Time
+AdditiveLyapunovNet,10,1000.0,0.0,0.0,0.0,1.0,1228.756967199
+AdditiveLyapunovNet,11,961.0,0.0,0.0,39.0,0.961,1517.877224882
+AdditiveLyapunovNet,12,999.0,0.0,0.0,1.0,0.999,2458.907342959
+AdditiveLyapunovNet,13,1000.0,0.0,0.0,0.0,1.0,4101.166463159
+AdditiveLyapunovNet,14,991.0,0.0,0.0,9.0,0.991,7131.001417967
+AdditiveLyapunovNet,15,1000.0,0.0,0.0,0.0,1.0,14710.338235962
+AdditiveLyapunovNet,6,992.0,0.0,0.0,8.0,0.992,828.92796164
+AdditiveLyapunovNet,7,991.0,0.0,0.0,9.0,0.991,868.445326634
+AdditiveLyapunovNet,8,998.0,0.0,0.0,2.0,0.998,974.553813732
+AdditiveLyapunovNet,9,998.0,0.0,0.0,2.0,0.998,1020.142320194
+MultiplicativeLyapunovNet,10,970.0,0.0,0.0,30.0,0.97,850.702025803
+MultiplicativeLyapunovNet,11,1000.0,0.0,0.0,0.0,1.0,1220.810974517
+MultiplicativeLyapunovNet,12,1000.0,0.0,0.0,0.0,1.0,2168.106752758
+MultiplicativeLyapunovNet,13,996.0,0.0,0.0,4.0,0.996,3799.268505539
+MultiplicativeLyapunovNet,14,1000.0,0.0,0.0,0.0,1.0,6975.367122308
+MultiplicativeLyapunovNet,15,999.0,0.0,0.0,1.0,0.999,13412.506568233
+MultiplicativeLyapunovNet,6,968.0,0.0,0.0,32.0,0.968,549.062729222
+MultiplicativeLyapunovNet,7,994.0,0.0,0.0,6.0,0.994,587.59541936
+MultiplicativeLyapunovNet,8,999.0,0.0,0.0,1.0,0.999,609.228278538
+MultiplicativeLyapunovNet,9,999.0,0.0,0.0,1.0,0.999,689.300381329

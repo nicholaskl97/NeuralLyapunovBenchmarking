@@ -1,0 +1,10 @@
+Decrease Condition,Rectifier,True Positives,False Positives,True Negatives,False Negatives,Training Time
+AsymptoticStability,relu,167.0,812.0,21.0,0.0,30.288190504
+AsymptoticStability,softplus,242.0,747.0,11.0,0.0,63.48418331
+AsymptoticStability,squareplus,263.0,726.0,11.0,0.0,91.638803529
+ExponentialStability,relu,168.0,821.0,11.0,0.0,31.822225425
+ExponentialStability,softplus,162.0,828.0,10.0,0.0,72.187978237
+ExponentialStability,squareplus,172.0,818.0,10.0,0.0,105.034060175
+StabilityISL,relu,165.0,809.0,26.0,0.0,29.896153913
+StabilityISL,softplus,225.0,764.0,11.0,0.0,59.856618228
+StabilityISL,squareplus,243.0,746.0,11.0,0.0,88.590903705

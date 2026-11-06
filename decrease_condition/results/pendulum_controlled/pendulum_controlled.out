@@ -1,0 +1,108 @@
+Beginning StabilityISL - relu benchmark...
+Precompilation run...
+Running benchmark...
+StabilityISL - relu took 31.031092806 seconds to train and 1.245168004 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     567
+   2 │ False Positives    421
+   3 │ True Negatives      10
+   4 │ False Negatives      2
+Beginning ExponentialStability - relu benchmark...
+Precompilation run...
+Running benchmark...
+ExponentialStability - relu took 34.386735501 seconds to train and 1.244305059 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     569
+   2 │ False Positives    431
+   3 │ True Negatives       0
+   4 │ False Negatives      0
+Beginning AsymptoticStability - relu benchmark...
+Precompilation run...
+Running benchmark...
+AsymptoticStability - relu took 33.823398444 seconds to train and 1.260050211 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     568
+   2 │ False Positives    425
+   3 │ True Negatives       6
+   4 │ False Negatives      1
+Beginning StabilityISL - softplus benchmark...
+Precompilation run...
+Running benchmark...
+StabilityISL - softplus took 59.271055641 seconds to train and 1.255924427 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     567
+   2 │ False Positives    431
+   3 │ True Negatives       0
+   4 │ False Negatives      2
+Beginning ExponentialStability - softplus benchmark...
+Precompilation run...
+Running benchmark...
+ExponentialStability - softplus took 69.2856117 seconds to train and 1.243255621 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     569
+   2 │ False Positives    431
+   3 │ True Negatives       0
+   4 │ False Negatives      0
+Beginning AsymptoticStability - softplus benchmark...
+Precompilation run...
+Running benchmark...
+AsymptoticStability - softplus took 60.969487976 seconds to train and 1.258013913 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     567
+   2 │ False Positives    431
+   3 │ True Negatives       0
+   4 │ False Negatives      2
+Beginning StabilityISL - squareplus benchmark...
+Precompilation run...
+Running benchmark...
+StabilityISL - squareplus took 82.862501089 seconds to train and 1.693480721 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     567
+   2 │ False Positives    431
+   3 │ True Negatives       0
+   4 │ False Negatives      2
+Beginning ExponentialStability - squareplus benchmark...
+Precompilation run...
+Running benchmark...
+ExponentialStability - squareplus took 98.18989223 seconds to train and 1.270776542 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     569
+   2 │ False Positives    431
+   3 │ True Negatives       0
+   4 │ False Negatives      0
+Beginning AsymptoticStability - squareplus benchmark...
+Precompilation run...
+Running benchmark...
+AsymptoticStability - squareplus took 84.856348658 seconds to train and 1.245999704 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     567
+   2 │ False Positives    431
+   3 │ True Negatives       0
+   4 │ False Negatives      2

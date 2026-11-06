@@ -1,0 +1,240 @@
+Beginning AdditiveLyapunovNet - 6 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 6 took 313.470454545 seconds to train and 1.785121105 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     996
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      4
+Beginning MultiplicativeLyapunovNet - 6 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 6 took 199.907172593 seconds to train and 2.291617737 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     985
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     15
+Beginning AdditiveLyapunovNet - 7 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 7 took 317.793820738 seconds to train and 1.674660659 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     996
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      4
+Beginning MultiplicativeLyapunovNet - 7 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 7 took 213.202336959 seconds to train and 1.636669726 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     998
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      2
+Beginning AdditiveLyapunovNet - 8 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 8 took 348.147044199 seconds to train and 1.639120338 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     990
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     10
+Beginning MultiplicativeLyapunovNet - 8 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 8 took 221.919246247 seconds to train and 1.657474743 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     999
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      1
+Beginning AdditiveLyapunovNet - 9 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 9 took 383.275711571 seconds to train and 1.698682624 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     995
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      5
+Beginning MultiplicativeLyapunovNet - 9 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 9 took 247.660367953 seconds to train and 1.642730488 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     996
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      4
+Beginning AdditiveLyapunovNet - 10 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 10 took 459.833649462 seconds to train and 1.627213748 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     956
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     44
+Beginning MultiplicativeLyapunovNet - 10 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 10 took 315.206449438 seconds to train and 1.6345899 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     998
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      2
+Beginning AdditiveLyapunovNet - 11 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 11 took 575.579218529 seconds to train and 1.703783333 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     995
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      5
+Beginning MultiplicativeLyapunovNet - 11 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 11 took 439.906034327 seconds to train and 1.916946047 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     991
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      9
+Beginning AdditiveLyapunovNet - 12 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 12 took 923.43435158 seconds to train and 1.705187665 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     936
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     64
+Beginning MultiplicativeLyapunovNet - 12 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 12 took 731.229611338 seconds to train and 1.593638687 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     992
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      8
+Beginning AdditiveLyapunovNet - 13 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 13 took 1560.927294296 seconds to train and 1.578941759 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     970
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     30
+Beginning MultiplicativeLyapunovNet - 13 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 13 took 1422.335637389 seconds to train and 1.674209178 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     987
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     13
+Beginning AdditiveLyapunovNet - 14 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 14 took 2958.076257872 seconds to train and 1.591560694 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     961
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     39
+Beginning MultiplicativeLyapunovNet - 14 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 14 took 2785.692609177 seconds to train and 1.643738956 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     990
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     10
+Beginning AdditiveLyapunovNet - 15 benchmark...
+Precompilation run...
+Running benchmark...
+AdditiveLyapunovNet - 15 took 5576.418890834 seconds to train and 1.850226269 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     954
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives     46
+Beginning MultiplicativeLyapunovNet - 15 benchmark...
+Precompilation run...
+Running benchmark...
+MultiplicativeLyapunovNet - 15 took 5459.224138517 seconds to train and 1.646106285 seconds to evaluate.
+4×2 DataFrame
+ Row │ Classification   Count
+     │ String           Int64
+─────┼────────────────────────
+   1 │ True Positives     992
+   2 │ False Positives      0
+   3 │ True Negatives       0
+   4 │ False Negatives      8

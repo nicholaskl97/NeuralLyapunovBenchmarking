@@ -1,0 +1,79 @@
+System,Decrease Condition,Rectifier,True Positives,False Positives,True Negatives,False Negatives,Training Time,Accuracy
+Acrobot,AsymptoticStability,relu,0.0,983.0,17.0,0.0,417.95288767,0.017
+Acrobot,AsymptoticStability,softplus,0.0,983.0,17.0,0.0,742.177121007,0.017
+Acrobot,AsymptoticStability,squareplus,0.0,985.0,15.0,0.0,1067.645852619,0.015
+Acrobot,ExponentialStability,relu,0.0,993.0,7.0,0.0,441.24381276,0.007
+Acrobot,ExponentialStability,softplus,0.0,989.0,11.0,0.0,770.43330655,0.011
+Acrobot,ExponentialStability,squareplus,0.0,988.0,12.0,0.0,1123.142098747,0.012
+Acrobot,StabilityISL,relu,0.0,964.0,36.0,0.0,397.118414261,0.036
+Acrobot,StabilityISL,softplus,0.0,977.0,23.0,0.0,727.905667371,0.023
+Acrobot,StabilityISL,squareplus,0.0,977.0,23.0,0.0,1049.667824844,0.023
+Acrobot LQR,AsymptoticStability,relu,52.0,894.0,39.0,15.0,317.721714315,0.091
+Acrobot LQR,AsymptoticStability,softplus,53.0,874.0,59.0,14.0,578.662627224,0.112
+Acrobot LQR,AsymptoticStability,squareplus,57.0,901.0,32.0,10.0,842.307401962,0.089
+Acrobot LQR,ExponentialStability,relu,59.0,888.0,45.0,8.0,338.246899265,0.104
+Acrobot LQR,ExponentialStability,softplus,62.0,896.0,37.0,5.0,618.40824764,0.099
+Acrobot LQR,ExponentialStability,squareplus,59.0,894.0,39.0,8.0,895.379257865,0.098
+Acrobot LQR,StabilityISL,relu,56.0,896.0,37.0,11.0,301.018172977,0.093
+Acrobot LQR,StabilityISL,softplus,59.0,909.0,24.0,8.0,570.366933436,0.083
+Acrobot LQR,StabilityISL,squareplus,58.0,894.0,39.0,9.0,835.675754549,0.097
+Double Pendulum,AsymptoticStability,relu,0.0,991.0,9.0,0.0,493.067637728,0.009
+Double Pendulum,AsymptoticStability,softplus,0.0,994.0,6.0,0.0,852.591535648,0.006
+Double Pendulum,AsymptoticStability,squareplus,0.0,986.0,14.0,0.0,1200.123150473,0.014
+Double Pendulum,ExponentialStability,relu,0.0,998.0,2.0,0.0,506.485113148,0.002
+Double Pendulum,ExponentialStability,softplus,0.0,984.0,16.0,0.0,882.76314896,0.016
+Double Pendulum,ExponentialStability,squareplus,0.0,994.0,6.0,0.0,1253.069572584,0.006
+Double Pendulum,StabilityISL,relu,0.0,994.0,6.0,0.0,479.229989865,0.006
+Double Pendulum,StabilityISL,softplus,0.0,990.0,10.0,0.0,847.331708061,0.01
+Double Pendulum,StabilityISL,squareplus,0.0,993.0,7.0,0.0,1184.870808074,0.007
+Double Pendulum LQR,AsymptoticStability,relu,990.0,0.0,0.0,10.0,328.69902739,0.99
+Double Pendulum LQR,AsymptoticStability,softplus,975.0,0.0,0.0,25.0,598.481801379,0.975
+Double Pendulum LQR,AsymptoticStability,squareplus,987.0,0.0,0.0,13.0,873.02416087,0.987
+Double Pendulum LQR,ExponentialStability,relu,987.0,0.0,0.0,13.0,347.897145835,0.987
+Double Pendulum LQR,ExponentialStability,softplus,985.0,0.0,0.0,15.0,632.85890988,0.985
+Double Pendulum LQR,ExponentialStability,squareplus,977.0,0.0,0.0,23.0,935.268097255,0.977
+Double Pendulum LQR,StabilityISL,relu,971.0,0.0,0.0,29.0,308.105228971,0.971
+Double Pendulum LQR,StabilityISL,softplus,974.0,0.0,0.0,26.0,585.896223689,0.974
+Double Pendulum LQR,StabilityISL,squareplus,976.0,0.0,0.0,24.0,885.778787348,0.976
+Double Pendulum Undriven,AsymptoticStability,relu,998.0,0.0,0.0,2.0,319.458512456,0.998
+Double Pendulum Undriven,AsymptoticStability,softplus,1000.0,0.0,0.0,0.0,570.648481164,1.0
+Double Pendulum Undriven,AsymptoticStability,squareplus,998.0,0.0,0.0,2.0,1086.748624635,0.998
+Double Pendulum Undriven,ExponentialStability,relu,999.0,0.0,0.0,1.0,339.487266605,0.999
+Double Pendulum Undriven,ExponentialStability,softplus,997.0,0.0,0.0,3.0,613.246382241,0.997
+Double Pendulum Undriven,ExponentialStability,squareplus,999.0,0.0,0.0,1.0,931.059311559,0.999
+Double Pendulum Undriven,StabilityISL,relu,998.0,0.0,0.0,2.0,302.165722422,0.998
+Double Pendulum Undriven,StabilityISL,softplus,1000.0,0.0,0.0,0.0,569.568027592,1.0
+Double Pendulum Undriven,StabilityISL,squareplus,1000.0,0.0,0.0,0.0,874.979997287,1.0
+Pendulum Controlled,AsymptoticStability,relu,568.0,425.0,6.0,1.0,33.823398444,0.574
+Pendulum Controlled,AsymptoticStability,softplus,567.0,431.0,0.0,2.0,60.969487976,0.567
+Pendulum Controlled,AsymptoticStability,squareplus,567.0,431.0,0.0,2.0,84.856348658,0.567
+Pendulum Controlled,ExponentialStability,relu,569.0,431.0,0.0,0.0,34.386735501,0.569
+Pendulum Controlled,ExponentialStability,softplus,569.0,431.0,0.0,0.0,69.2856117,0.569
+Pendulum Controlled,ExponentialStability,squareplus,569.0,431.0,0.0,0.0,98.18989223,0.569
+Pendulum Controlled,StabilityISL,relu,567.0,421.0,10.0,2.0,31.031092806,0.577
+Pendulum Controlled,StabilityISL,softplus,567.0,431.0,0.0,2.0,59.271055641,0.567
+Pendulum Controlled,StabilityISL,squareplus,567.0,431.0,0.0,2.0,82.862501089,0.567
+Pendulum Driven,AsymptoticStability,relu,167.0,812.0,21.0,0.0,30.288190504,0.188
+Pendulum Driven,AsymptoticStability,softplus,242.0,747.0,11.0,0.0,63.48418331,0.253
+Pendulum Driven,AsymptoticStability,squareplus,263.0,726.0,11.0,0.0,91.638803529,0.274
+Pendulum Driven,ExponentialStability,relu,168.0,821.0,11.0,0.0,31.822225425,0.179
+Pendulum Driven,ExponentialStability,softplus,162.0,828.0,10.0,0.0,72.187978237,0.172
+Pendulum Driven,ExponentialStability,squareplus,172.0,818.0,10.0,0.0,105.034060175,0.182
+Pendulum Driven,StabilityISL,relu,165.0,809.0,26.0,0.0,29.896153913,0.191
+Pendulum Driven,StabilityISL,softplus,225.0,764.0,11.0,0.0,59.856618228,0.236
+Pendulum Driven,StabilityISL,squareplus,243.0,746.0,11.0,0.0,88.590903705,0.254
+Pendulum Undriven,AsymptoticStability,relu,998.0,0.0,0.0,2.0,32.13715569,0.998
+Pendulum Undriven,AsymptoticStability,softplus,1000.0,0.0,0.0,0.0,57.814499789,1.0
+Pendulum Undriven,AsymptoticStability,squareplus,999.0,0.0,0.0,1.0,80.532350714,0.999
+Pendulum Undriven,ExponentialStability,relu,1000.0,0.0,0.0,0.0,33.273337342,1.0
+Pendulum Undriven,ExponentialStability,softplus,1000.0,0.0,0.0,0.0,66.197754028,1.0
+Pendulum Undriven,ExponentialStability,squareplus,1000.0,0.0,0.0,0.0,94.620730914,1.0
+Pendulum Undriven,StabilityISL,relu,998.0,0.0,0.0,2.0,30.273500855,0.998
+Pendulum Undriven,StabilityISL,softplus,1000.0,0.0,0.0,0.0,57.392322134,1.0
+Pendulum Undriven,StabilityISL,squareplus,1000.0,0.0,0.0,0.0,80.104580036,1.0
+Quadrotor 3D LQR,AsymptoticStability,relu,81.0,832.0,82.0,5.0,694.899995929,0.163
+Quadrotor 3D LQR,AsymptoticStability,softplus,78.0,837.0,77.0,8.0,1395.217301862,0.155
+Quadrotor 3D LQR,ExponentialStability,relu,82.0,888.0,26.0,4.0,705.200073825,0.108
+Quadrotor 3D LQR,ExponentialStability,softplus,82.0,888.0,26.0,4.0,1419.587311376,0.108
+Quadrotor 3D LQR,StabilityISL,relu,81.0,808.0,106.0,5.0,687.565091031,0.187
+Quadrotor 3D LQR,StabilityISL,softplus,78.0,815.0,99.0,8.0,1364.120567923,0.177
