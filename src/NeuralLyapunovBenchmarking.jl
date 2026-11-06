@@ -12,6 +12,7 @@ using StableRNGs
 using Serialization, CSV
 using ZipArchives: ZipWriter, zip_newfile, ZipReader, zip_readentry
 using DataFrames
+using LsqFit
 using Pkg: status, PKGMODE_MANIFEST
 using InteractiveUtils: versioninfo
 using SciMLBase: EnsembleDistributed
