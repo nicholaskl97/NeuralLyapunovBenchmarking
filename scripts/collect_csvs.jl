@@ -4,7 +4,8 @@
 This script scans `<experiment>/results/<trial>/summary.csv` for the requested
 experiment target and writes a merged `<experiment>/results/summary.csv`.
 A `System` column is inserted from the trial name, and `Accuracy` is computed
-from true/false positive/negative counts when available.
+from true/false positive/negative counts when available. It also aggregates
+accuracy fit parameters and writes a Markdown report with the plots and tables.
 """
 
 using CSV
@@ -37,6 +38,52 @@ function find_col(df::DataFrame, colname)
         end
     end
     return nothing
+end
+
+function markdown_cell(value)
+    ismissing(value) && return ""
+    return replace(string(value), "|" => "\\|", "\n" => " ", "\r" => " ")
+end
+
+function markdown_table(df)
+    column_names = names(df)
+    isempty(column_names) && return "_No data available._"
+
+    lines = [
+        "| " * join(markdown_cell.(column_names), " | ") * " |",
+        "| " * join(fill("---", length(column_names)), " | ") * " |"
+    ]
+    for row in eachrow(df)
+        push!(lines, "| " * join((markdown_cell(row[name]) for name in column_names), " | ") * " |")
+    end
+    return join(lines, "\n")
+end
+
+function markdown_plot_table(plot_rows)
+    lines = ["|  |  |  |", "| --- | --- | --- |"]
+    for row_start in 1:3:length(plot_rows)
+        row_end = min(row_start + 2, length(plot_rows))
+        cells = [
+            "![Accuracy vs Training Time for $(plot_rows[index][1])]($(plot_rows[index][2]))<br>$(plot_rows[index][1])"
+            for index in row_start:row_end
+        ]
+        append!(cells, fill("", 3 - length(cells)))
+        push!(lines, "| " * join(cells, " | ") * " |")
+    end
+    return join(lines, "\n")
+end
+
+function summary_markdown(experiment, plot_rows, fit_parameters, summary)
+    return join([
+        "# $experiment Summary",
+        "## Accuracy vs Training Time Plots",
+        markdown_plot_table(plot_rows),
+        "## Accuracy Fit Parameters",
+            raw"$$\mathrm{Accuracy}(t) = A - C \cdot t^{-p}, \quad A, C, p \geq 0, \quad t = \mathrm{Training\ Time}.$$",
+        markdown_table(fit_parameters),
+        "## Trial Summary",
+        markdown_table(summary)
+    ], "\n\n")
 end
 
 function main(args)
@@ -121,6 +168,8 @@ function main(args)
             continue
         end
         dfs = DataFrame[]
+        fit_dfs = DataFrame[]
+        plot_rows = Tuple{String, String}[]
 
         # decide which trials to scan
         allowed_trials = haskey(trials_filter, exp) ? trials_filter[exp] : nothing
@@ -131,6 +180,7 @@ function main(args)
             end
             trialdir = joinpath(expdir, trial)
             summary_path = joinpath(trialdir, "summary.csv")
+            sysname = titlecase_system(trial)
             if isfile(summary_path)
                 df = nothing
                 try
@@ -142,9 +192,24 @@ function main(args)
                 if df === nothing
                     continue
                 end
-                sysname = titlecase_system(trial)
                 insertcols!(df, 1, :System => fill(sysname, nrow(df)))
                 push!(dfs, df)
+            end
+
+            fit_path = joinpath(trialdir, "accuracy_fit_parameters.csv")
+            if isfile(fit_path)
+                try
+                    fit_df = CSV.read(fit_path, DataFrame)
+                    insertcols!(fit_df, 1, :System => fill(sysname, nrow(fit_df)))
+                    push!(fit_dfs, fit_df)
+                catch err
+                    @warn "Failed to read $(fit_path): $err"
+                end
+            end
+
+            plot_path = joinpath(trialdir, "accuracy_vs_training_time.png")
+            if isfile(plot_path)
+                push!(plot_rows, (sysname, relpath(plot_path, expdir)))
             end
         end
 
@@ -173,6 +238,24 @@ function main(args)
                 @info "Wrote summary: $outpath"
             catch err
                 @warn "Failed to write $(outpath): $err"
+            end
+
+            fit_parameters = isempty(fit_dfs) ? DataFrame(System = String[]) :
+                vcat(fit_dfs...; cols = :union)
+            fit_outpath = joinpath(expdir, "fit_parameters.csv")
+            try
+                CSV.write(fit_outpath, fit_parameters)
+                @info "Wrote fit parameters: $fit_outpath"
+            catch err
+                @warn "Failed to write $(fit_outpath): $err"
+            end
+
+            markdown_path = joinpath(expdir, "summary.md")
+            try
+                write(markdown_path, summary_markdown(exp, plot_rows, fit_parameters, combined))
+                @info "Wrote Markdown summary: $markdown_path"
+            catch err
+                @warn "Failed to write $(markdown_path): $err"
             end
         else
             @info "No trial summary CSVs found for experiment: $exp"
