@@ -1,5 +1,0 @@
-GKS: cannot open display - headless operation mode active
-┌ Warning: Skipping quadrotor_planar_lqr.err, as it is not a .zip file
-└ @ NeuralLyapunovBenchmarking ~/NeuralLyapunovBenchmarking/src/postprocessing.jl:86
-┌ Warning: Skipping quadrotor_planar_lqr.out, as it is not a .zip file
-└ @ NeuralLyapunovBenchmarking ~/NeuralLyapunovBenchmarking/src/postprocessing.jl:86

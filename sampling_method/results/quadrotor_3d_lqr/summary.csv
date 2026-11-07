@@ -1,4 +1,0 @@
-Sampling Method,True Positives,False Positives,True Negatives,False Negatives,Training Time
-GridTraining,78.0,734.0,180.0,8.0,923.959030533
-QuasiRandomTraining,82.0,894.0,20.0,4.0,713.365773406
-StochasticTraining,81.0,901.0,13.0,5.0,943.376517659
