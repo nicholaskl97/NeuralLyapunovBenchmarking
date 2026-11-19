@@ -39,6 +39,8 @@ These groups are used by the Makefile targets below to run experiments in a cons
 - [scripts](scripts): shared helper scripts used by the workflow.
   - [scripts/collect_csvs.jl](scripts/collect_csvs.jl): aggregates per-trial summaries into experiment-level summaries.
   - [scripts/generate_sampling_method_plot.jl](scripts/generate_sampling_method_plot.jl): creates a scatter plot for results of the Sampling Method study.
+  - [scripts/archive_results.jl](scripts/archive_results.jl): archives an experiment's results and clears the results files.
+  - [scripts/restore_results.jl](scripts/restore_results.jl): restores results from an archive.
 - [decrease_condition](decrease_condition): experiment-specific scripts and results for the Decrease Condition study.
 - [sampling_method](sampling_method): experiment-specific scripts and results for the Sampling Method study.
 - [lyapunov-net_variants](lyapunov-net_variants): experiment-specific scripts and results for the Lyapunov-Net architecture study.
@@ -65,6 +67,28 @@ Generate a plot for a sampling-method summary CSV:
 ```bash
 julia --project=. scripts/generate_sampling_method_plot.jl path/to/summary.csv
 ```
+
+Archive the current results for an experiment. The timestamped ZIP is saved in
+that experiment's `archives` directory; files are then removed from `results`,
+while its directory structure is kept:
+
+```bash
+julia --project=. scripts/archive_results.jl decrease_condition
+```
+
+Restore an archive by date, or by its full timestamp when more than one archive
+exists for that date:
+
+```bash
+julia --project=. scripts/restore_results.jl decrease_condition 2026-11-19
+julia --project=. scripts/restore_results.jl decrease_condition 2026-11-19_12-20
+```
+
+When `results` already contains files, the restore script offers the choice to
+overwrite them, archive the current results before overwriting, or exit. Restore
+does not delete the archive being used. Existing archives are never overwritten;
+if the current minute's timestamp is already in use, archiving stops without
+clearing the results.
 
 ### Experiment-specific scripts
 

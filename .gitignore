@@ -6,4 +6,5 @@
 Manifest*.toml
 .vscode/settings.json
 /*/results/
+/*/archives/
 slurm-*.out
