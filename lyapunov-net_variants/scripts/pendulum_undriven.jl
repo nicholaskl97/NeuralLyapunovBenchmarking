@@ -2,6 +2,7 @@ using NeuralLyapunovBenchmarking, NeuralLyapunov
 using NeuralPDE: QuasiRandomTraining
 using OptimizationOptimisers: Adam
 using StableRNGs: StableRNG
+import Random
 
 N_seeds = 10
 

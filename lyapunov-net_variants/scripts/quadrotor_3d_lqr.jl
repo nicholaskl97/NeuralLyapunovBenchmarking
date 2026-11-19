@@ -4,6 +4,7 @@ using NeuralPDE: QuasiRandomTraining
 using OptimizationOptimisers: Adam
 using SciMLBase: EnsembleSerial
 using StableRNGs: StableRNG
+import Random
 
 N_seeds = 10
 
