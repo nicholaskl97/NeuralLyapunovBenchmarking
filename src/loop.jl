@@ -17,8 +17,9 @@ function run_benchmark(
     st,
     log_frequency,
     experiment_name,
-    trial_name,
-    ensemble_alg = EnsembleDistributed()
+    trial_name;
+    ensemble_alg = EnsembleDistributed(),
+    random_seed = 0
 )
     println("Beginning $trial_name benchmark...")
 
@@ -45,7 +46,8 @@ function run_benchmark(
         ps,
         st,
         ensemble_alg,
-        log_frequency
+        log_frequency,
+        random_seed
     )
     println(
         "$trial_name took $(result.training_time) seconds to train and ",

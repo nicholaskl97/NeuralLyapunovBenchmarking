@@ -3,84 +3,94 @@ using NeuralLyapunov: StabilityISL
 using NeuralPDE: QuasiRandomTraining
 using OptimizationOptimisers: Adam
 using SciMLBase: EnsembleSerial
+using StableRNGs: StableRNG
 
-# Get 3D-quadrotor-specific variables
-m = 0.775f0
-g = 9.81f0
-Ixx::Float32 = 3 / 2000
-Iyy::Float32 = 5 / 2000
-Izz::Float32 = 7 / 2000
-Ixy = Ixz = Iyz = 0.0f0
-k_F = 1.0f0
-k_M::Float32 = 49 / 2000
-L = 0.15f0
-p = Float32[m, g, Ixx, Ixy, Ixz, Iyy, Iyz, Izz, k_F, k_M, L]
-dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
-    periodic_embedding_layer, periodic_pos_def, endpoint_check = quadrotor_3d_setup(;
-        p, lqr = true, speed_control = true
-);
+N_seeds = 10
 
-# Set up neural network
-dim_hidden = 1028
-hidden_layers = 10
-dim_out = 16
-control_dim = 0
-Ns = 6:15
-variants = mapreduce(vcat, Ns) do N
-    strategy = QuasiRandomTraining(2^N)
-    return [
-        ("AdditiveLyapunovNet - $N", additive_lyapunov_net_setup, strategy),
-        ("MultiplicativeLyapunovNet - $N", multiplicative_lyapunov_net_setup, strategy),
-    ]
-end
+for seed in 1:N_seeds
+    Random.seed!(seed)
+    rng = StableRNG(seed)
 
-# Define optimization parameters
-opt = [Adam(0.1f0), Adam(0.01f0), Adam(0.001f0)]
-optimization_args = [:maxiters => 2000]
-
-# Define evaluation parameters
-n = 1000
-simulation_time = 3.0f3
-log_frequency = 1
-
-# Define decrease conditions
-ω0 = sqrt(g / sqrt(minimum(abs, [Ixx, Iyy, Izz]) / m))
-decrease_condition = StabilityISL()
-
-#################################### Run the benchmarks ####################################
-experiment_name = "lyapunov-net_variants"
-for (trial_name, setup, strategy) in variants
-    chain, ps, st, structure, minimization_condition = setup(
-        dim_hidden,
-        hidden_layers,
-        dim_out,
-        fixed_point_embedded,
-        control_dim;
-        embedding = periodic_embedding_layer
+    # Get 3D-quadrotor-specific variables
+    m = 0.775f0
+    g = 9.81f0
+    Ixx::Float32 = 3 / 2000
+    Iyy::Float32 = 5 / 2000
+    Izz::Float32 = 7 / 2000
+    Ixy = Ixz = Iyz = 0.0f0
+    k_F = 1.0f0
+    k_M::Float32 = 49 / 2000
+    L = 0.15f0
+    p = Float32[m, g, Ixx, Ixy, Ixz, Iyy, Iyz, Izz, k_F, k_M, L]
+    dynamics, p, bounds, fixed_point, fixed_point_embedded, periodic_embedding,
+        periodic_embedding_layer, periodic_pos_def, endpoint_check = quadrotor_3d_setup(;
+            p, lqr = true, speed_control = true
     );
 
-    run_benchmark(
-        dynamics,
-        bounds,
-        p,
-        structure,
-        minimization_condition,
-        decrease_condition,
-        chain,
-        strategy,
-        opt,
-        n,
-        fixed_point,
-        optimization_args,
-        simulation_time,
-        endpoint_check,
-        ps,
-        st,
-        log_frequency,
-        experiment_name,
-        trial_name,
-        EnsembleSerial()
-    )
+    # Set up neural network
+    dim_hidden = 1028
+    hidden_layers = 10
+    dim_out = 16
+    control_dim = 0
+    Ns = 6:15
+    variants = mapreduce(vcat, Ns) do N
+        strategy = QuasiRandomTraining(2^N)
+        return [
+            ("AdditiveLyapunovNet - $N - $seed", additive_lyapunov_net_setup, strategy),
+            ("MultiplicativeLyapunovNet - $N - $seed", multiplicative_lyapunov_net_setup, strategy),
+        ]
+    end
+
+    # Define optimization parameters
+    opt = [Adam(0.1f0), Adam(0.01f0), Adam(0.001f0)]
+    optimization_args = [:maxiters => 2000]
+
+    # Define evaluation parameters
+    n = 1000
+    simulation_time = 3.0f3
+    log_frequency = 1
+
+    # Define decrease conditions
+    ω0 = sqrt(g / sqrt(minimum(abs, [Ixx, Iyy, Izz]) / m))
+    decrease_condition = StabilityISL()
+
+    #################################### Run the benchmarks ####################################
+    experiment_name = "lyapunov-net_variants"
+    for (trial_name, setup, strategy) in variants
+        chain, ps, st, structure, minimization_condition = setup(
+            dim_hidden,
+            hidden_layers,
+            dim_out,
+            fixed_point_embedded,
+            control_dim;
+            embedding = periodic_embedding_layer,
+            rng
+        );
+
+        run_benchmark(
+            dynamics,
+            bounds,
+            p,
+            structure,
+            minimization_condition,
+            decrease_condition,
+            chain,
+            strategy,
+            opt,
+            n,
+            fixed_point,
+            optimization_args,
+            simulation_time,
+            endpoint_check,
+            ps,
+            st,
+            log_frequency,
+            experiment_name,
+            trial_name;
+            ensemble_alg = EnsembleSerial(),
+            random_seed = seed
+        )
+    end
 end
 
-write_summary(dynamics, experiment_name, "Architecture - N")
+write_summary(dynamics, experiment_name, "Architecture - N - Seed")

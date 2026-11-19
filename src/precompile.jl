@@ -13,7 +13,8 @@ function benchmark_with_precompile(
         ps,
         st,
         ensemble_alg = EnsembleDistributed(),
-        log_frequency = 10
+        log_frequency = 10,
+        random_seed = 0
     )
     # Precompilation run
     println("Precompilation run...")
@@ -36,8 +37,8 @@ function benchmark_with_precompile(
     )
 
     # Seed the random number generators for reproducibility
-    rng = StableRNG(0)
-    Random.seed!(200)
+    rng = StableRNG(random_seed)
+    Random.seed!(random_seed)
 
     # Run benchmark
     println("Running benchmark...")
