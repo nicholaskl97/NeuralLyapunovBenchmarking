@@ -19,7 +19,8 @@ function run_benchmark(
     experiment_name,
     trial_name;
     ensemble_alg = EnsembleDistributed(),
-    random_seed = 0
+    random_seed = 0,
+    save_params = false
 )
     println("Beginning $trial_name benchmark...")
 
@@ -69,7 +70,7 @@ function run_benchmark(
 
     # Save intermediate results
     sys_name = string(getname(dynamics))
-    write_zip(result, cm, tt, params, loss_plt, sys_name, experiment_name, trial_name)
+    write_zip(result, cm, tt, params, loss_plt, sys_name, experiment_name, trial_name, save_params)
 
     return nothing
 end

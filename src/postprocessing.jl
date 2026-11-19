@@ -24,7 +24,8 @@ function write_zip(
     loss_plt,
     dynamics_name,
     experiment_name,
-    trial_name
+    trial_name,
+    save_params
 )
     proj_dir = get(ENV, "PROJDIR", ".")
     dir = joinpath(proj_dir, experiment_name, "results", dynamics_name)
@@ -45,8 +46,10 @@ function write_zip(
         zip_newfile(zip, "simulation_data.csv")
         CSV.write(zip, result.data; bom=true)
 
-        zip_newfile(zip, "params.dat")
-        serialize(zip, params)
+        if save_params
+            zip_newfile(zip, "params.dat")
+            serialize(zip, params)
+        end
     end
     return nothing
 end
