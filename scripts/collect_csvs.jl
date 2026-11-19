@@ -29,6 +29,13 @@ function titlecase_system(name::AbstractString)
     return join(parts, ' ')
 end
 
+function titlecase_experiment(name::AbstractString)
+    parts = map(split(name, '_')) do part
+        join(uppercasefirst.(lowercase.(split(part, '-'))), '-')
+    end
+    return join(parts, ' ')
+end
+
 """Find a DataFrame column by name in a case-insensitive way."""
 function find_col(df::DataFrame, colname)
     target = lowercase(string(colname))
@@ -75,7 +82,7 @@ end
 
 function summary_markdown(experiment, plot_rows, fit_parameters, summary)
     return join([
-        "# $experiment Summary",
+        "# $(titlecase_experiment(experiment)) Summary",
         "## Accuracy vs Training Time Plots",
         markdown_plot_table(plot_rows),
         "## Accuracy Fit Parameters",
