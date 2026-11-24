@@ -4,7 +4,7 @@ using NeuralLyapunovBenchmarking: write_summary
 
 const TRIAL_CATEGORIES = Dict(
     "decrease_condition" => "Decrease Condition - Rectifier",
-    "lyapunov-net_variants" => "Architecture - N",
+    "lyapunov-net_variants" => "Architecture - N - Seed",
     "sampling_method" => "Sampling Method"
 )
 
