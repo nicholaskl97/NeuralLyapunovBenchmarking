@@ -62,6 +62,15 @@ julia --project=. scripts/collect_csvs.jl decrease_condition
 julia --project=. scripts/collect_csvs.jl decrease_condition/controlled
 ```
 
+Rewrite per-system summaries from the trial ZIP files using the same targets:
+
+```bash
+julia --project=. scripts/rewrite_summaries.jl all
+julia --project=. scripts/rewrite_summaries.jl decrease_condition
+julia --project=. scripts/rewrite_summaries.jl decrease_condition/controlled
+julia --project=. scripts/rewrite_summaries.jl sampling_method/quadrotor_planar_lqr
+```
+
 Generate a plot for a sampling-method summary CSV:
 
 ```bash

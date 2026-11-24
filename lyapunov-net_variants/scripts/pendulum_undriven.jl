@@ -76,4 +76,5 @@ for seed in 1:N_seeds
     end
 end
 
-write_summary(dynamics, experiment_name, "Architecture - N - Seed")
+dynamics_name = first(splitext(basename(@__FILE__)))
+write_summary(dynamics_name, experiment_name, "Architecture - N - Seed")

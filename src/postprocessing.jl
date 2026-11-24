@@ -150,7 +150,7 @@ function save_accuracy_plot(df, plot_path, group_column, fit_parameters, dynamic
     return nothing
 end
 
-function write_summary(dynamics, experiment_name, trial_category_name = experiment_name)
+function write_summary(sys_name, experiment_name, trial_category_name = experiment_name)
     # Make empty DataFrame
     trial_category_names = split(trial_category_name, " - ")
     df = DataFrame(
@@ -168,7 +168,6 @@ function write_summary(dynamics, experiment_name, trial_category_name = experime
     )
 
     # Get directory of results
-    sys_name = string(getname(dynamics))
     proj_dir = get(ENV, "PROJDIR", ".")
     zip_dir = joinpath(proj_dir, experiment_name, "results", sys_name)
 
