@@ -86,7 +86,7 @@ function summary_markdown(experiment, plot_rows, fit_parameters, summary)
         "## Accuracy vs Training Time Plots",
         markdown_plot_table(plot_rows),
         "## Accuracy Fit Parameters",
-            raw"$$\mathrm{Accuracy}(t) = A - C \cdot t^{-p}, \quad A, C, p \geq 0, \quad t = \mathrm{Training\ Time}.$$",
+            raw"$$\mathrm{Accuracy}(t) = A - C \cdot t^{-p}, \quad C, p \geq 0, \quad A \in [0, 1], \quad t = \mathrm{Training\ Time}.$$",
         markdown_table(fit_parameters),
         "## Trial Summary",
         markdown_table(summary)

@@ -83,7 +83,8 @@ function fit_accuracy_curves(df, group_column)
             training_times,
             accuracy,
             [initial_asymptote, initial_coefficient, initial_power];
-            lower = zeros(3)
+            lower = zeros(3),
+            upper = [1.0, Inf, Inf]
         )
         push!(fit_parameters, (
             group_value,
