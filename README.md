@@ -85,6 +85,13 @@ while its directory structure is kept:
 julia --project=. scripts/archive_results.jl decrease_condition
 ```
 
+To create an archive without clearing the results directory, add
+`--keep-results`:
+
+```bash
+julia --project=. scripts/archive_results.jl --keep-results decrease_condition
+```
+
 Restore an archive by date, or by its full timestamp when more than one archive
 exists for that date:
 

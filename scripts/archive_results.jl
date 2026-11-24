@@ -40,7 +40,11 @@ function clear_results_contents!(directory::AbstractString)
     return nothing
 end
 
-function archive_results(experiment_name::AbstractString; project_root::AbstractString = PROJECT_ROOT)
+function archive_results(
+    experiment_name::AbstractString;
+    project_root::AbstractString = PROJECT_ROOT,
+    keep_results::Bool = false,
+)
     experiment_dir, results_dir = experiment_paths(experiment_name; project_root)
     archives_dir = joinpath(experiment_dir, "archives")
     if islink(archives_dir)
@@ -86,17 +90,23 @@ function archive_results(experiment_name::AbstractString; project_root::Abstract
         isfile(temporary_archive) && rm(temporary_archive; force = true)
     end
 
-    clear_results_contents!(results_dir)
-    @info "Archived results to $archive_path and cleared $results_dir"
+    if keep_results
+        @info "Archived results to $archive_path; kept contents of $results_dir"
+    else
+        clear_results_contents!(results_dir)
+        @info "Archived results to $archive_path and cleared $results_dir"
+    end
     return archive_path
 end
 
 function main(args)
-    if length(args) != 1
-        println("Usage: julia --project=. scripts/archive_results.jl <experiment-directory>")
+    keep_results = "--keep-results" in args
+    positional_args = filter(arg -> arg != "--keep-results", args)
+    if length(positional_args) != 1 || any(startswith(arg, "--") for arg in positional_args)
+        println("Usage: julia --project=. scripts/archive_results.jl [--keep-results] <experiment-directory>")
         exit(1)
     end
-    archive_results(args[1])
+    archive_results(only(positional_args); keep_results)
 end
 
 if abspath(PROGRAM_FILE) == abspath(@__FILE__)
