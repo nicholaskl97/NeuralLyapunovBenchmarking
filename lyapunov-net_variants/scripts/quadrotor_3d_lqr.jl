@@ -47,7 +47,7 @@ for seed in 1:N_seeds
     optimization_args = [:maxiters => 2000]
 
     # Define evaluation parameters
-    n = 1000
+    n = 100
     simulation_time = 3.0f3
     log_frequency = 1
 
