@@ -28,7 +28,7 @@ export acrobot_setup, pendulum_setup, double_pendulum_setup, quadrotor_planar_se
     quadrotor_3d_setup
 
 const cpud = cpu_device()
-const gpud = gpu_device()
+const gpud = CUDAdevice()
 
 include("network_setup.jl")
 
